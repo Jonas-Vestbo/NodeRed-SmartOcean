@@ -1,0 +1,1175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by John Peter Guzikowski (AADI) -->
+<!--
+	<xs:element name="VirtualSensors">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Functions">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="VirtualFunction" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Sensors">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="VirtualSensor" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="VirtualFunction">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Descr" type="xs:string"/>
+				<xs:element name="Info" type="xs:string"/>
+				<xs:element name="Inputs">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Input" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="ConstantOnly" type="xs:boolean"/>
+										<xs:element name="ParameterTypeID" type="xs:int"/>
+										<xs:element name="Descr" type="xs:string"/>
+										<xs:element name="RequiredUnit" type="xs:string" minOccurs="0"/>
+									</xs:sequence>
+									<xs:attribute name="ID" type="xs:string" use="required"/>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Output">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="ParameterTypeID" type="xs:int"/>
+							<xs:element name="DefaultName"/>
+							<xs:element name="DefaultRangeMin" type="xs:string"/>
+							<xs:element name="DefaultRangeMax" type="xs:string"/>
+							<xs:element name="FixedUnit" type="xs:string" minOccurs="0"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="ID" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="VirtualParameter">
+		<xs:sequence>
+			<xs:element name="FunctionID" type="xs:string"/>
+			<xs:element name="Inputs">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Input" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="IsConstant" type="xs:boolean"/>
+									<xs:element name="Constant" type="xs:double"/>
+									<xs:element name="SensorID" type="xs:string"/>
+									<xs:element name="PointID" type="xs:string"/>
+								</xs:sequence>
+								<xs:attribute name="ID" type="xs:string" use="required"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="ID" type="xs:string" use="required"/>
+		<xs:attribute name="Name" type="xs:string" use="required"/>
+		<xs:attribute name="Unit" type="xs:string" use="required"/>
+		<xs:attribute name="RangeMin" type="xs:string"/>
+		<xs:attribute name="RangeMax" type="xs:string"/>
+		<xs:attribute name="Type" type="xs:string"/>
+		<xs:attribute name="Format" type="xs:string"/>
+	</xs:complexType>
+	<xs:element name="VirtualSensor">
+		<xs:annotation>
+			<xs:documentation>Virtual sensor</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Parameters">
+					<xs:annotation>
+						<xs:documentation>Virtual parameter list</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Point" type="VirtualParameter" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>Virtual point parameter</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="TimeSeries" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>Time series parameter</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="VirtualParameter">
+											<xs:attribute name="SamplingInterval"/>
+											<xs:attribute name="NoSamples"/>
+										</xs:extension>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Vector" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>Virtual vector parameter</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="VirtualParameter">
+											<xs:attribute name="Dimension" type="xs:int"/>
+										</xs:extension>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Spectrum" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>Virtual spectrum parameter</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="VirtualParameter">
+											<xs:attribute name="FreqStart" type="xs:double"/>
+											<xs:attribute name="FreqResolution" type="xs:double"/>
+											<xs:attribute name="FreqUnit" type="xs:string"/>
+											<xs:attribute name="Size" type="xs:int"/>
+										</xs:extension>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="ID" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>Sensor ID</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="ProdNo" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>Sensor product number</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="ProdName" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>Sensor product name</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="SerialNo" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>Sensor serial number</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="DefaultDescr" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>Default sensor description</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+-->
+<xs:schema xmlns="http://www.aadi.no/RTDeviceLayoutSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.aadi.no/RTDeviceLayoutSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Layout">
+		<xs:annotation>
+			<xs:documentation>Represents the root element in the Device Layout schema.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="HardwareLayout">
+					<xs:annotation>
+						<xs:documentation>Hardware layout.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Time" type="xs:dateTime" use="required">
+				<xs:annotation>
+					<xs:documentation>Layout timestamp.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="ID" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>Layout ID.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="Version" type="xs:string" use="optional" default="1"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="HardwareLayout">
+		<xs:annotation>
+			<xs:documentation>Represents the hardware layout.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Instrument" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Instrument/platform settings.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="ComPorts" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>List of COM ports.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="ComPort" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>List of COM ports.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element ref="Serial" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Serial sensor layout.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="Digital" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Digital sensor layout.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="Analog" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Analog sensor layout.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="SR10VR22" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>SR10/VR22 sensor layout (on Datalogger 3860).</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="Communication" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Communication equipment, for example satelitte modems.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Serial">
+		<xs:annotation>
+			<xs:documentation>Represents the layout for all serial sensors.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="CustomFormats" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>List of custom data formats.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="CustomFormat" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>List of custom data formats.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="PredefinedFormats" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>List of pre-defined data formats.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="PredefinedFormat" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>List of pre-defined data formats.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Sensors">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Sensor" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="Sensor">
+											<xs:sequence>
+												<xs:element name="ComPort" type="xs:string">
+													<xs:annotation>
+														<xs:documentation>COM port number.</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="ComPortModeID" type="xs:int">
+													<xs:annotation>
+														<xs:documentation>COM port mode ID.</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="FormatTypeID" type="xs:int">
+													<xs:annotation>
+														<xs:documentation>Data format type ID (pre-defined = 1, custom = 2).</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="FormatID" type="xs:string">
+													<xs:annotation>
+														<xs:documentation>Data format ID.</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="FormatVersionCode" type="xs:string">
+													<xs:annotation>
+														<xs:documentation>Data format version code.</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:sequence>
+										</xs:extension>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Channels">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Channel" type="Channel" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="SensorTypes">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="SensorType" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="SerialDataFormat">
+		<xs:annotation>
+			<xs:documentation>Represents the base class for all serial sensor data formats.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="VersionCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Data format version code. Updated each time the format definition is modified.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Descr" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Data format description.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="ID" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>Data format ID.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="Sensor">
+		<xs:annotation>
+			<xs:documentation>Represents a single sensor.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ProductNumber" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Product number.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ProductName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Product name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SerialNumber" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Serial number.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NodeTypeID" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>AADI node type (category) ID.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SensorTypeID" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Sensor type ID.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="ID" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>Sensor ID.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="Channel">
+		<xs:annotation>
+			<xs:documentation>Represents a single channel.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SensorID" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Sensor ID that this channel belongs to.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ParamName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Parameter name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Unit" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The physical unit of the parameter value, e.g. kPa or DegC.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RawValue" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Value indicating if this parameter contains a raw value (rather than a value in engineering units).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RangeMin" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Minimum parameter value.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RangeMax" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Maximum parameter value.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Type" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The data type of the parameter value.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Format" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The number format of the parameter value.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ChannelTypeID" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Channel type ID.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="ChannelNumber" type="xs:int" use="required">
+			<xs:annotation>
+				<xs:documentation>Channel number.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:element name="ComPort">
+		<xs:annotation>
+			<xs:documentation>Represents a serial com port.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Info" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Port information.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Modes">
+					<xs:annotation>
+						<xs:documentation>List of available port modes.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Mode" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>List of available port modes.</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Descr" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>Port mode description, e.g. RS232.</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="ID" type="xs:int" use="required">
+										<xs:annotation>
+											<xs:documentation>Port mode ID.</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="PortNumber" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>Port number.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Instrument">
+		<xs:annotation>
+			<xs:documentation>Represents instrument/platform settings.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ProductNumber" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Instrument product number.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="SerialNumber" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Instrument serial number.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="ProductName" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Instrument product name.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Parts" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>List of instrument parts.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="Part" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>List of instrument parts.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element ref="LANSettings" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>LAN chip settings.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="SensorGroupDefinition">
+		<xs:annotation>
+			<xs:documentation>Represents a group of sensors.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Sensors">
+				<xs:annotation>
+					<xs:documentation>List of sensors in this group.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Sensor" type="Sensor" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>List of sensors in this group.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Channels">
+				<xs:annotation>
+					<xs:documentation>List of channels in this group.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Channel" type="Channel" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>List of channels in this group.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SensorTypes" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>List of sensor types.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="SensorType" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>List of sensor types.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ChannelTypes" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>List of channel types.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="ChannelType" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>List of channel types.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="AvailableChannels">
+				<xs:annotation>
+					<xs:documentation>List of available channels.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ChannelNumber" type="xs:int" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>List of available channels.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Digital" type="SensorGroupDefinition">
+		<xs:annotation>
+			<xs:documentation>Represents the hardware layout for all digital sensors.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Analog" type="SensorGroupDefinition">
+		<xs:annotation>
+			<xs:documentation>Represents the hardware layout for all analog sensors.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="SR10VR22" type="SensorGroupDefinition">
+		<xs:annotation>
+			<xs:documentation>Represents the hardware layout for all SR10/VR22 sensors on Datalogger 3860.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ChannelType">
+		<xs:annotation>
+			<xs:documentation>Represents a channel type.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Descr" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Channel type description.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="ID" type="xs:int" use="required">
+				<xs:annotation>
+					<xs:documentation>Channel type ID.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ComPortType">
+		<xs:annotation>
+			<xs:documentation>Represents a com port type.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Descr" type="xs:string"/>
+			</xs:sequence>
+			<xs:attribute name="ID" type="xs:int" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SensorType">
+		<xs:annotation>
+			<xs:documentation>Represents a sensor type.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Descr" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Sensor type description.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="ID" type="xs:int" use="required">
+				<xs:annotation>
+					<xs:documentation>Sensor type ID.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="LANSettings">
+		<xs:annotation>
+			<xs:documentation>Represents the settings for a LAN chip.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="EnableChip" type="xs:boolean"/>
+				<xs:element name="ProductionMAC" type="xs:string"/>
+				<xs:element name="CustomMAC" type="xs:string"/>
+				<xs:element name="UseCustomMAC" type="xs:boolean"/>
+				<xs:element name="EnableActivityLED" type="xs:boolean"/>
+				<xs:element name="EnableStatusLED" type="xs:boolean"/>
+				<xs:element name="EnableDMA" type="xs:boolean"/>
+				<xs:element name="AutoConfig" type="xs:boolean"/>
+				<xs:element name="EnableDHCP" type="xs:boolean"/>
+				<xs:element name="IPAddress" type="xs:string"/>
+				<xs:element name="SubnetMask" type="xs:string"/>
+				<xs:element name="DefaultGateway" type="xs:string"/>
+				<xs:element name="PrimaryDNS" type="xs:string"/>
+				<xs:element name="SecondaryDNS" type="xs:string"/>
+				<xs:element name="UseZeroBroadcast" type="xs:boolean"/>
+				<xs:element name="DefaultIPAddress" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Part">
+		<xs:annotation>
+			<xs:documentation>Represents an instrument part (component).</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Installed" type="xs:boolean" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Value indicating if the part is installed on the instrument.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="ProductNumber" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Product number.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="SerialNumber" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Serial number.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Version" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Version number.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Reference" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Reference value.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Descr" use="required">
+				<xs:annotation>
+					<xs:documentation>Description.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="CustomFormat">
+		<xs:annotation>
+			<xs:documentation>Represents a custom user-defined serial sensor format.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="SerialDataFormat">
+					<xs:sequence>
+						<xs:element name="MessageLines">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element ref="MessageLine" minOccurs="0" maxOccurs="unbounded"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="MessageDelimiterID" type="xs:int">
+							<xs:annotation>
+								<xs:documentation>Message delimiter ID (CR/LN = 0, CR = 1, LN = 2).</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PredefinedFormat">
+		<xs:annotation>
+			<xs:documentation>Represents a pre-defined serial sensor format.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="SerialDataFormat">
+					<xs:sequence>
+						<xs:element name="NumberOfChannels" type="xs:int">
+							<xs:annotation>
+								<xs:documentation>The number of channels in this data format.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Communication">
+		<xs:annotation>
+			<xs:documentation>Represents communication equipment, for example satelitte modems.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="DataProtocols">
+					<xs:annotation>
+						<xs:documentation>List of data protocols.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="DataProtocol" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>List of data protocols.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ModemTypes">
+					<xs:annotation>
+						<xs:documentation>List of supported modem types.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="ModemType" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>List of supported modem types.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Modems">
+					<xs:annotation>
+						<xs:documentation>List of modems.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="Modem" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>List of modems.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="RoutingPorts">
+					<xs:annotation>
+						<xs:documentation>List of routing ports.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="RoutingPort" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>List of routing ports.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="RealTimeComPorts">
+					<xs:annotation>
+						<xs:documentation>List of RealTime ports.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="RealTimeComPort" minOccurs="0" maxOccurs="2">
+								<xs:annotation>
+									<xs:documentation>List of Real-Time Com ports</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="NetworkServiceTypes">
+					<xs:annotation>
+						<xs:documentation>List of supported service types.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="NetworkServiceType" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>List of supported service types.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="NetworkServices">
+					<xs:annotation>
+						<xs:documentation>List of network services.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="NetworkService" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>List of network services.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ModemType">
+		<xs:annotation>
+			<xs:documentation>Represents a supported modem type. Can be a generic type or a producer specified modem.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Descr" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Modem type description.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Info" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Additional modem type information.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="SupportedProtocols">
+					<xs:annotation>
+						<xs:documentation>List of supported protocols</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="DataProtocolID" type="xs:int" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="DefaultProductNumber" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Default product number</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="ID" type="xs:int" use="required">
+				<xs:annotation>
+					<xs:documentation>Modem Type ID.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="DataProtocol">
+		<xs:annotation>
+			<xs:documentation>Represents a communication protocol used by one or more communication devices.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Descr" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Protocol description.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Version" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Protocol version.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Info" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Additional protocol information.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="ID" type="xs:int" use="required">
+				<xs:annotation>
+					<xs:documentation>Data protocol ID.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Modem">
+		<xs:annotation>
+			<xs:documentation>Represents a communication modem.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ProductNumber" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Product number (default can be supported by modemType)</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="ProductName" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Product Name</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="SerialNumber" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Serial number</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="ModemTypeID" type="xs:int">
+					<xs:annotation>
+						<xs:documentation>Modem type ID.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="ComPort" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Com port number (shared resource).</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="ComPortModeID" type="xs:int">
+					<xs:annotation>
+						<xs:documentation>Com port mode ID.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="DataProtocolID" type="xs:int">
+					<xs:annotation>
+						<xs:documentation>Data protocol ID.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="ID" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>Modem ID.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="RoutingPort">
+		<xs:annotation>
+			<xs:documentation>Represents a routing port.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Descr" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Description.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="ComPort" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Com port number (shared resource).</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="ComPortModeID" type="xs:int">
+					<xs:annotation>
+						<xs:documentation>Com port mode ID.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="RoutingID" type="xs:int"/>
+			</xs:sequence>
+			<xs:attribute name="ID" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>Routing port ID.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="RealTimeComPort">
+		<xs:annotation>
+			<xs:documentation>Represents a Real-Time Com port.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Descr" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Description.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="ComPort" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Com port number (shared resource).</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="ComPortModeID" type="xs:int">
+					<xs:annotation>
+						<xs:documentation>Com port mode ID.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="ID" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>RealTime Comport ID.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="MessageLine">
+		<xs:annotation>
+			<xs:documentation>Represents a custom format message line.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Elements">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Element" type="xs:int" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Index" type="xs:int" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="NetworkServiceType">
+		<xs:annotation>
+			<xs:documentation>Represents a supported network service type.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Descr" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Network service type description.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Info" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Additional Network service type information.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="ProductNumber" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>product number</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="ProductName">
+					<xs:annotation>
+						<xs:documentation>Product Name</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="SupportedProtocols">
+					<xs:annotation>
+						<xs:documentation>List of supported protocols</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="DataProtocolID" type="xs:int" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="MaxInstances" type="xs:int" default="1">
+					<xs:annotation>
+						<xs:documentation>Max number of instances</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="ID" type="xs:int" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="NetworkService">
+		<xs:annotation>
+			<xs:documentation>Represents a network service.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Description" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Product Name</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="NetworkServiceTypeID" type="xs:int">
+					<xs:annotation>
+						<xs:documentation>Network service type ID.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="ServiceTypeInstance" type="xs:int" default="0"/>
+				<xs:element name="DataProtocolID" type="xs:int">
+					<xs:annotation>
+						<xs:documentation>Data protocol ID.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="ID" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

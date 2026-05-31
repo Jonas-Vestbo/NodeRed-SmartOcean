@@ -1,0 +1,131 @@
+Category,variable name,long_name,unit,CF standard_name,additional attributes ('O'ptional or 'M'andatory),SDN Param,SDN UoM
+Coordinates,TIME,Time,days since 1950-01-01T00:00:00Z,time,-,-,-
+Coordinates,LATITUDE,Latitude of each location,degree_north,latitude,-,-,-
+Coordinates,LONGITUDE,Longitude of each location,degree_east,longitude,-,-,-
+Coordinates,DEPLOY_LATITUDE,Latitude of each deployment,degree_north,deployment_latitude,-,-,-
+Coordinates,DEPLOY_LONGITUDE,Longitude of each deployment,degree_east,deployment_longitude,-,-,-
+Coordinates,PRECISE_LATITUDE,Latitude of each location,degree_north,latitude,-,-,-
+Coordinates,PRECISE_LONGITUDE,Longitude of each location,degree_east,longitude,-,-,-
+Coordinates,DEPH,Depth,m,depth,-,SDN:P01::ADEPZZ01,SDN:P06::ULAA
+Coordinates,PRES,Sea pressure,dbar,sea_water_pressure,-,SDN:P01::PRESPR01,SDN:P06::UPDB
+Coordinates (HF radar specific),BEAR,Bearing away from instrument,degree_true,TBD,-,SDN:P01::BEARRFTR,SDN:P06::UABB
+Coordinates (HF radar specific),RNGE,Range away from instrument,km,TBD,-,SDN:P01::RIFNAX01,SDN:P06::ULKM
+Coordinates (Wave spectra specific),FREQ,Central frequency of the band,s-1,wave_frequency,-,TBD,SDN:P06::PRSC
+Physical oceanography,TEMP,Sea temperature,degrees_C,sea_water_temperature,-,SDN:P01::TEMPPR01,SDN:P06::UPAA
+Physical oceanography,PSAL,Practical salinity,0.001,sea_water_practical_salinity,-,SDN:P01::PSLTZZ01,SDN:P06::UUUU
+Physical oceanography,CNDC,Electrical conductivity,S m-1,sea_water_electrical_conductivity,-,SDN:P01::CNDCZZ01,SDN:P06::UECA
+Physical oceanography,DENS,Sea density (sigma-theta),kg m-3,sea_water_sigma_theta,-,SDN:P01::SIGTEQ01,SDN:P06::UKMC
+Physical oceanography,SIGT,Sea density (sigma-t),kg m-3,sea_water_sigma_t,-,SDN:P01::SIGTEQST,SDN:P06::UKMC
+Physical oceanography,SVEL,Sound velocity,m s-1,speed_of_sound_in_sea_water,-,SDN:P01::SVELXXXX,SDN:P06::UVAA
+Physical oceanography,BATH,Bathymetric depth,m,sea_floor_depth_below_sea_surface,-,SDN:P01:MBANZZZZ,SDN:P06::ULAA
+Physical oceanography,HCSP,Horizontal current speed,m s-1,sea_water_speed,-,SDN:P01::LCSAZZ01,SDN:P06::UVAA
+Physical oceanography,HCDT,Current to direction relative true north,degree,direction_of_sea_water_velocity,-,SDN:P01::LCDAZZ01,SDN:P06::UABB
+Physical oceanography,EWCT,West-east current component,m s-1,eastward_sea_water_velocity,-,SDN:P01::LCEWZZ01,SDN:P06::UVAA
+Physical oceanography,NSCT,South-north current component,m s-1,northward_sea_water_velocity,-,SDN:P01::LCNSZZ01,SDN:P06::UVAA
+Physical oceanography,VCSP,Bottom-top current component,m s-1,upward_sea_water_velocity,-,SDN:P01::LRZAZZZZ,SDN:P06::UVAA
+Physical oceanography,RDVA,Radial sea water velocity away from instrument,m s-1,radial_sea_water_velocity_away_from _instrument,-,SDN:P01::LCSAWVRD,SDN:P06::UVAA
+Physical oceanography,DRVA,Direction of radial vector away from instrument,degree_true,direction_of_radial_vector_away_from_instrument,-,SDN:P01::LCDAWVRD,SDN:P06::UABB
+Sea Level,SLEV,Water surface height above a specific datum,m,water_surface_height_above_reference_datum,"time_sampling = n (M, in minutes)
+sea_level_datum = ""chart datum"", ""geodetic datum"", ""…"" (M)
+processing_method = ""instantaneous values"", ""filtered values"", ""average"", ""…"" (M)
+TGBM_name = ""..."" (O)
+TGBM_sea_level_datum = n (O)
+co_location_with_GNSS = ""Distance (km)"", ""No"", ""Unknown"" (O)
+TGBM_ellipsoidal_height_estimate = n (O)
+vertical_land_movement_estimate = ""trend (mm/year) - period"", ""unknown"" (O)
+GNSS_campaign = ""Yes"", ""No"" (O)
+comment=""…"" (O)",SDN:P01::ASLVZZ01,SDN:P06::ULAA
+Sea Level,SLVR,Non tidal elevation of sea surface height,m,non_tidal_elevation_of_sea_surface_height,"time_sampling = n (M, in minutes)
+sea_level_datum = ""chart datum"", ""geodetic datum"", ""…"" (M)
+processing_method = ""instantaneous values"", ""filtered values"", ""average"", ""…"" (M)
+comment=""…"" (O)",SDN:P01::ASLVR101,SDN:P06::ULAA
+Sea Level,TIDE,Tidal sea surface height above a specific datum,m,tidal_sea_surface_height_above_reference_datum (1),"time_sampling = n (M, in minutes)
+sea_level_datum = ""chart datum"", ""geodetic datum"", ""…"" (M)
+processing_method = ""instantaneous values"", ""filtered values"", ""average"", ""…"" (M)
+comment=""…"" (O)",SDN:P01::ASLVTI01,SDN:P06::ULAA
+Waves,VGHS,Generic significant wave height (Hs),m,sea_surface_wave_significant_height,"type_of_analysis=""unknown"" (M)",SDN:P01::GTDHZZ01,SDN:P06::ULAA
+Waves,VHM0,Spectral significant wave height (Hm0),m,sea_surface_wave_significant_height,"type_of_analysis=""spectral analysis"" (M)",SDN:P01::HMZEZZ01,SDN:P06::ULAA
+Waves,VAVH,Average height highest 1/3 wave (H1/3),m,sea_surface_wave_significant_height,"type_of_analysis=""zero crossing"" (M)",SDN:P01::GAVHZZ01,SDN:P06::ULAA
+Waves,VH110,Average height highest 1/10 wave (H1/10),m,sea_surface_wave_mean_height_of_highest_tenth,"type_of_analysis=""zero crossing"" (M)",SDN:P01::GTDTZZ01,SDN:P06::ULAA
+Waves,VHZA,Average zero crossing wave height (Hzm),m,sea_surface_wave_mean_height,"type_of_analysis=""zero crossing"" (M)",SDN:P01::HZAVZZ01,SDN:P06::ULAA
+Waves,VEMH,Estimated maximum wave height,m,sea_surface_wave_maximum_height,"type_of_analysis=""unknown"" (M)",SDN:P01::GCMXVS01,SDN:P06::ULAA
+Waves,VZMX,Maximum zero crossing wave height (Hmax),m,sea_surface_wave_maximum_height,"type_of_analysis=""zero crossing"" (M)",SDN:P01::GZMXZZ01,SDN:P06::ULAA
+Waves,VCMX,"Maximum crest trough wave height (Hc,max)",m,sea_surface_wave_maximum_height,"type_of_analysis=""crests"" (M)",SDN:P01::GCMXZZ01,SDN:P06::ULAA
+Waves,VMXL,Height of the highest crest,m,sea_surface_wave_maximum_crest_height,"type_of_analysis=""crests"" (M)",SDN:P01::GMXLZZ01,SDN:P06::ULAA
+Waves,SWHT,Swell height,m,sea_surface_swell_wave_significant_height,"type_of_analysis=""spectral analysis"" (M)",SDN:P01::GHSWZZ01,SDN:P06::ULAA
+Waves,VM01,"Spectral moments (0,1) wave period (Tm01)",s,sea_surface_wave_mean_period_from_variance_spectral_density_first_frequency_moment,"type_of_analysis=""spectral analysis"" (M)",SDN:P01::GTZAM1ZZ,SDN:P06::UTBB
+Waves,VTM02,"Spectral moments (0,2) wave period (Tm02)",s,sea_surface_wave_mean_period_from_variance_spectral_density_second_frequency_moment,"type_of_analysis=""spectral analysis"" (M)",SDN:P01::GTZAM2ZZ,SDN:P06::UTBB
+Waves,VTM10,"Spectral moments (-1,0) wave period (Tm-10)",s,sea_surface_wave_mean_period_from_variance_spectral_density_inverse_frequency_moment,"type_of_analysis=""spectral analysis"" (M)",SDN:P01::GTZAMIZZ,SDN:P06::UTBB
+Waves,VTZA,Average zero crossing wave period (Tz),s,sea_surface_wave_mean_period,"type_of_analysis=""zero crossing"" (M)",SDN:P01::GTZAZZ01,SDN:P06::UTBB
+Waves,VGTA,Generic average wave period,s,sea_surface_wave_mean_period,"type_of_analysis=""unknown"" (M)",SDN:P01::GTAMZZ01,SDN:P06::UTBB
+Waves,VTPK,Wave period at spectral peak / peak period (Tp),s,sea_surface_wave_period_at_variance_spectral_density_maximum,"type_of_analysis=""spectral analysis"" (M)",SDN:P01::GTPKZZ01,SDN:P06::UTBB
+Waves,VAVT,Average period highest 1/3 wave (T1/3),s,sea_surface_wave_significant_period,"type_of_analysis=""zero crossing"" (M)",SDN:P01::GTZHZZ01,SDN:P06::UTBB
+Waves,VT110,Average period highest 1/10 wave (T1/10),s,sea_surface_wave_mean_period_of_highest_tenth,"type_of_analysis=""zero crossing"" (M)",SDN:P01::GTZHTN01,SDN:P06::UTBB
+Waves,VTMX,Maximum wave period (Tmax),s,sea_surface_wave_maximum_period,"type_of_analysis=""zero crossing"" (M)",SDN:P01::GTZMZZ01,SDN:P06::UTBB
+Waves,VTZM,Period of the highest wave (Thmax),s,sea_surface_wave_period_of_highest_wave,"type_of_analysis=""zero crossing"" (M)",SDN:P01::GTHMXX01,SDN:P06::UTBB
+Waves,VMDR,Mean wave direction from (Mdir),degree,sea_surface_wave_from_direction,"type_of_analysis=""spectral analysis"" (M)",SDN:P01::GMWDZZ01,SDN:P06::UABB
+Waves,VDIR,Wave direction rel. true north,degree,sea_surface_wave_from_direction,"type_of_analysis=""unknown"" (M)",SDN:P01::GWDRZZ01,SDN:P06::UABB
+Waves,VPED,Wave principal direction at spectral peak,degree,sea_surface_wave_from_direction_at_variance_spectral_density_maximum,"type_of_analysis=""spectral analysis"" (M)",SDN:P01::GPEDZZ01,SDN:P06::UABB
+Waves,VEPK,Wave spectrum peak energy (Smax),m2 s,sea_surface_wave_energy_at_variance_spectral_density_maximum,"type_of_analysis=""spectral analysis"" (M)",SDN:P01::GEPKZZ01,SDN:P06::UMHZ
+Waves,VST1,Maximum wave steepness,1,sea_surface_wave_maximum_steepness,"type_of_analysis=""unknown"" (M)",SDN:P01::WVSTZZ01,SDN:P06::UUUU
+Waves,VPSP,Wave directional spreading at spectral peak,degree,sea_surface_wave_directional_spread_at_variance_spectral_density_maximum,"type_of_analysis=""spectral analysis"" (M)",SDN:P01::GSPRZZ01,SDN:P06::UAAA
+Waves,VSPEC1D,Wave scalar spectral density,m2 s,sea_surface_wave_variance_spectral_density,"type_of_analysis=""1st order spectral analysis"" (M)",TBD,SDN:P06::M2SX
+Waves,THETA1,Mean wave from direction,degree,sea_surface_wave_from_direction,"type_of_analysis=""1st order spectral analysis"" (M)",TBD,SDN:P06::UABB
+Waves,STHETA1,Directional spread around THETA1,degree,sea_surface_wave_directional_spread,"type_of_analysis=""1st order spectral analysis"" (M)",TBD,SDN:P06::UAAA
+Waves,THETA2,Principal wave from direction,degree,sea_surface_wave_from_direction,"type_of_analysis=""2nd order spectral analysis"" (M)",TBD,SDN:P06::UABB
+Waves,STHETA2,Directional spread around THETA2,degree,sea_surface_wave_directional_spread,"type_of_analysis=""2nd order spectral analysis"" (M)",TBD,SDN:P06::UAAA
+BGC,DOXY,Dissolved oxygen,mmol m-3,mole_concentration_of_dissolved_molecular_oxygen_in_sea_water,-,SDN:P01::DOXYZZXX,SDN:P06::UPOX
+BGC,DOX1,Dissolved oxygen,ml l-1,volume_fraction_of_oxygen_in_sea_water,-,SDN:P01::DOXYZZXX,SDN:P06::UMLL
+BGC,DOX2,Dissolved oxygen,µmol kg-1,moles_of_oxygen_per_unit_mass_in_sea_water,-,SDN:P01::DOXMZZXX,SDN:P06::KGUM
+BGC,OSAT,Oxygen saturation,%,fractional_saturation_of_oxygen_in_sea_water,-,SDN:P01::OXYSZZ01,SDN:P06::UPCT
+BGC,TICW,Dissolved inorganic carbon,µmol kg-1,moles_of_dissolved_inorganic_carbon_per_unit_mass_in_sea_water,-,TBD,TBD
+BGC,CORW (2),Dissolved organic carbon,µmol kg-1,TBD,-,TBD,TBD
+BGC,PCO2,CO2 partial pressure,µatm,surface_partial_pressure_of_carbon_dioxide_in_sea_water,-,SDN:P01::PCO2XXXX,SDN:P06::UATM
+BGC,FCO2,CO2 fugacity,µatm,fugacity_of_carbon_dioxide_in_sea_water,-,SDN:P01::FCO2XXXX,SDN:P06::UATM
+BGC,CPHL,Chlorophyll-a,mg m-3,mass_concentration_of_chlorophyll_a_in_sea_water,-,SDN:P01::CPHLZZXX,SDN:P06::UMMC
+BGC,CHLT,Total chlorophyll,mg m-3,mass_concentration_of_chlorophyll_in_sea_water,-,SDN:P01::CHLTVOLU,SDN:P06::UMMC
+BGC,FLU2,Chlorophyll-a fluorescence,mg m-3,mass_concentration_of_chlorophyll_a_fluorescence_in_sea_water (1),-,SDN:P01::CPHLPM01,SDN:P06::UMMC
+BGC,CDOM,Cdom,1e-9,concentration_of_colored_dissolved_organic_matter_in_sea_water_expressed_as_equivalent_mass_fraction_of_quinine_sulfate_dihydrate,-,SDN:P01::FLUOCDOM,SDN:P06::UUUU
+BGC,TUR4,Turbidity,1,sea_water_turbidity,-,SDN:P01::TURBXXXX,SDN:P06::USTU
+BGC,TSMP,Total suspended matter,g m-3,mass_concentration_of_suspended_matter_in_sea_water,-,SDN:P01::TSEDZZZZ,SDN:P06::UMGL
+BGC,NTRA,Nitrate (NO3-N),mmol m-3,mole_concentration_of_nitrate_in_sea_water,-,SDN:P01::NTRAZZXX,SDN:P06::UPOX
+BGC,NTAW,Nitrate (NO3-N),µmol kg-1,moles_of_nitrate_per_unit_mass_in_sea_water,-,SDN:P01::MDMAP005,SDN:P06::KGUM
+BGC,NTRI,Nitrite (NO2-N),mmol m-3,mole_concentration_of_nitrite_in_sea_water,-,SDN:P01::NTRIZZXX,SDN:P06::UPOX
+BGC,NTIW,Nitrite (NO2-N),µmol kg-1,moles_of_nitrite_per_unit_mass_in_sea_water,-,SDN:P01::MDMAP007,SDN:P06::KGUM
+BGC,NTRZ,Nitrate + Nitrite,mmol m-3,mole_concentration_of_nitrate_and_nitrite_in_sea_water,-,SDN:P01::NTRZZZXX,SDN:P06::UPOX
+BGC,PHOS,Phosphate (PO4-P),mmol m-3,mole_concentration_of_phosphate_in_sea_water,-,SDN:P01::PHOSZZXX,SDN:P06::UPOX
+BGC,PHOW,Phosphate (PO4-P),µmol kg-1,moles_of_phosphate_per_unit_mass_in_sea_water,-,SDN:P01::MDMAP906,SDN:P06::KGUM
+BGC,SLCA,Silicate (SIO4-SI),mmol m-3,mole_concentration_of_silicate_in_sea_water,-,SDN:P01::SLCAZZXX,SDN:P06::UPOX
+BGC,SLCW,Silicate (SIO4-SI),µmol kg-1,moles_of_silicate_per_unit_mass_in_sea_water,-,SDN:P01::MDMAP012,SDN:P06::KGUM
+BGC,AMON,Ammonium (NH4-N),mmol m-3,mole_concentration_of_ammonium_in_sea_water,-,SDN:P01::AMONZZXX,SDN:P06::UPOX
+BGC,NGDW,Dissolved nitrogen,µmol kg-1,TBD,-,TBD,TBD
+BGC,NODW,Dissolved organic nitrogen,µmol kg-1,TBD,,SDN:P01::MDMAP008,SDN:P06::KGUM
+BGC,ALKY,Total alkalinity,mmol m-3,sea_water_alkalinity_expressed_as_mole_equivalent,-,SDN:P01::ALKYZZXX,SDN:P06::UPOX
+BGC,ALKW,Total alkalinity,µmol kg-1,sea_water_alkalinity_per_unit_mass (1),-,SDN:P01::MDMAP014,SDN:P06::KGUM
+BGC,PHPH,Ph,1,sea_water_ph_reported_on_total_scale,-,SDN:P01::PHXXZZXX,SDN:P06::UUPH
+BGC,PH25,Ph at 25 °C and 0 dbar,1,TBD,-,SDN:P01::PHTLSX25,SDN:P06::UUPH
+BGC,BCCW,Abundance of bacteria,10+9 m-3,TBD,-,SDN:P01::TBCCXXXX,SDN:P06:UCUL
+Meteorological,WSPD,Horizontal wind speed,m s-1,wind_speed,-,SDN:P01::EWSBZZ01,SDN:P06::UVAA
+Meteorological,WDIR,Wind from direction relative true north,degree,wind_from_direction,-,SDN:P01::EWDAZZ01,SDN:P06::UABB
+Meteorological,GSPD,Gust wind speed,m s-1,wind_speed_of_gust,-,SDN:P01::EGTSZZ01,SDN:P06::UVAA
+Meteorological,GDIR,Gust wind from direction relative true north,degree,wind_gust_from_direction,-,SDN:P01::EGTDZZ01,SDN:P06::UABB
+Meteorological,WSPE,West-east wind component,m s-1,eastward_wind,-,SDN:P01::ESEWZZXX,SDN:P06::UVAA
+Meteorological,WSPN,South-north wind component,m s-1,northward_wind,-,SDN:P01::ESNSZZXX,SDN:P06::UVAA
+Meteorological,WSPU,Bottom-top wind component,m s-1,upward_air_velocity,-,SDN:P01:ESZAZZ01,SDN:P06:UVAA
+Meteorological,WBFO,Beaufort wind force,1,beaufort_wind_force,-,SDN:P01::WMOCWFBF,SDN:P06::UUUU
+Meteorological,DRYT,Air temperature in dry bulb,degrees_C,air_temperature,-,SDN:P01::CTMPZZ01,SDN:P06::UPAA
+Meteorological,WETT,Air temperature in wet bulb,degrees_C,wet_bulb_temperature,-,SDN:P01::CWETZZ01,SDN:P06::UPAA
+Meteorological,DEWT,Dew point temperature,degrees_C,dew_point_temperature,-,SDN:P01::CDEWZZ01,SDN:P06::UPAA
+Meteorological,RELH,Relative humidity,%,relative_humidity,-,SDN:P01::CRELZZ01,SDN:P06::UPCT
+Meteorological,ATMS,Atmospheric pressure at sea level,hPa,air_pressure_at_sea_level,-,SDN:P01::CAPAZZ01,SDN:P06::UPBB
+Meteorological,ATMP,Atmospheric pressure at altitude,hPa,air_pressure,-,SDN:P01::CAPHZZ01,SDN:P06::UPBB
+Meteorological,ATPT,Atmospheric pressure hourly tendency,hPa h-1,tendency_of_air_pressure,-,SDN:P01::APRESSTN,SDN:P06::HPAH
+Meteorological,RVFL,River flow rate,m3 s-1,water_volume_transport_into_sea_water_from_rivers,-,SDN:P01::RFDSCH01,SDN:P06::CMPS
+Meteorological,PRRT,Hourly precipitation rate (liquid water equivalent),mm h-1,lwe_precipitation_rate,-,SDN:P01::CPRRRG01,SDN:P06::MMPH
+Meteorological,PRRD,Daily precipitation rate (liquid water equivalent),mm d-1,lwe_precipitation_rate,-,SDN:P01::CPRRRG01,SDN:P06::MMPD
+Meteorological,SINC,Shortwave/solar incoming radiation,W m-2,surface_downwelling_shortwave_flux_in_air,-,SDN:P01::CSLRZZXX,SDN:P06::UFAA
+Meteorological,LINC,Longwave/atmospheric incoming radiation,W m-2,surface_downwelling_longwave_flux_in_air,-,SDN:P01::LWRDZZ01,SDN:P06::UFAA
+Meteorological,RDIN,Total incoming radiation,W m-2,surface_downwelling_radiative_flux_in_sea_water,-,SDN:P01:TLRDZZ01,SDN:P06::UFAA
+Meteorological,NRAD,Net total incoming radiation,W m-2,surface_net_downward_radiative_flux,-,SDN:P01:NTLRDZ01,SDN:P06::UFAA
+Meteorological,LGHT,Immerged incoming photosynthetic active radiation,µmol m-2 s-1,downwelling_photosynthetic_photon_flux_in_sea_water,-,SDN:P01::PARERXUD,SDN:P06::UMES
+Meteorological,LGH4,Surface incoming photosynthetic active radiation,µmol m-2 s-1,surface_downwelling_photosynthetic_photon_flux_in_air,-,SDN:P01::PARERXSD,SDN:P06::UMES

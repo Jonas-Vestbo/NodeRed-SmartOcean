@@ -1,0 +1,156 @@
+[
+  {
+    "id": "exsf_scale_def",
+    "type": "subflow",
+    "name": "scale-reading",
+    "info": "Reusable example subflow.\n\nMultiplies an incoming numeric reading by SCALE and adds OFFSET.\nSCALE and OFFSET are environment variables declared on the definition\nand overridden per instance, so every instance shares one body of\nlogic while remaining individually configurable.",
+    "category": "",
+    "in": [
+      {
+        "x": 60,
+        "y": 80,
+        "wires": [{ "id": "exsf_scale_fn" }]
+      }
+    ],
+    "out": [
+      {
+        "x": 360,
+        "y": 80,
+        "wires": [{ "id": "exsf_scale_fn", "port": 0 }]
+      }
+    ],
+    "env": [
+      {
+        "name": "SCALE",
+        "type": "num",
+        "value": "1",
+        "ui": { "label": { "en-US": "Calibration factor" }, "type": "input", "opts": { "types": ["num"] } }
+      },
+      {
+        "name": "OFFSET",
+        "type": "num",
+        "value": "0",
+        "ui": { "label": { "en-US": "Offset" }, "type": "input", "opts": { "types": ["num"] } }
+      }
+    ],
+    "meta": {},
+    "color": "#a6bbcf"
+  },
+  {
+    "id": "exsf_scale_fn",
+    "type": "function",
+    "z": "exsf_scale_def",
+    "name": "scale + offset",
+    "func": "// One input, one output.\n// SCALE and OFFSET are environment variables declared on the\n// subflow definition; each instance supplies its own values.\nconst scale  = parseFloat(env.get(\"SCALE\"))  || 1;\nconst offset = parseFloat(env.get(\"OFFSET\")) || 0;\n\nmsg.payload = msg.payload * scale + offset;\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 200,
+    "y": 80,
+    "wires": [[]]
+  },
+  {
+    "id": "exsf_tab",
+    "type": "tab",
+    "label": "Subflow Example",
+    "disabled": false,
+    "info": "Two instances of the single scale-reading definition, each with its\nown SCALE/OFFSET. Editing the definition changes both; the env vars\nkeep their calibration distinct."
+  },
+  {
+    "id": "exsf_inj_temp",
+    "type": "inject",
+    "z": "exsf_tab",
+    "name": "raw temp (824)",
+    "props": [{ "p": "payload" }],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "824",
+    "payloadType": "num",
+    "x": 170,
+    "y": 100,
+    "wires": [["exsf_inst_temp"]]
+  },
+  {
+    "id": "exsf_inst_temp",
+    "type": "subflow:exsf_scale_def",
+    "z": "exsf_tab",
+    "name": "Temperature  (x0.1)",
+    "env": [
+      { "name": "SCALE", "value": "0.1", "type": "num" },
+      { "name": "OFFSET", "value": "0", "type": "num" }
+    ],
+    "x": 420,
+    "y": 100,
+    "wires": [["exsf_dbg_temp"]]
+  },
+  {
+    "id": "exsf_dbg_temp",
+    "type": "debug",
+    "z": "exsf_tab",
+    "name": "temp (degC)",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": true,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "payload",
+    "statusType": "auto",
+    "x": 650,
+    "y": 100,
+    "wires": []
+  },
+  {
+    "id": "exsf_inj_pres",
+    "type": "inject",
+    "z": "exsf_tab",
+    "name": "raw pressure (500)",
+    "props": [{ "p": "payload" }],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "500",
+    "payloadType": "num",
+    "x": 180,
+    "y": 180,
+    "wires": [["exsf_inst_pres"]]
+  },
+  {
+    "id": "exsf_inst_pres",
+    "type": "subflow:exsf_scale_def",
+    "z": "exsf_tab",
+    "name": "Pressure  (x2, +5)",
+    "env": [
+      { "name": "SCALE", "value": "2", "type": "num" },
+      { "name": "OFFSET", "value": "5", "type": "num" }
+    ],
+    "x": 420,
+    "y": 180,
+    "wires": [["exsf_dbg_pres"]]
+  },
+  {
+    "id": "exsf_dbg_pres",
+    "type": "debug",
+    "z": "exsf_tab",
+    "name": "pressure (kPa)",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": true,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "payload",
+    "statusType": "auto",
+    "x": 660,
+    "y": 180,
+    "wires": []
+  }
+]

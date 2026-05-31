@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "format",
+    "metadata",
+    "data"
+  ],
+  "properties": {
+    "format": { "type": "string" },
+    "metadata": { "$ref": "#/definitions/MetaData" },
+    "data": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/DataPoint" }
+    }
+  },
+  "definitions": {
+    "Location": {
+      "type": "object",
+      "required": ["latitude", "longitude"],
+      "properties": {
+        "latitude":  { "type": "number" },
+        "longitude": { "type": "number" }
+      }
+    },
+    "MetaData": {
+      "type": "object",
+      "required": ["description", "timeseries"],
+      "properties": {
+        "description": { "type": "string" },
+        "timeseries":  { "type": "string" },
+        "origin":      { "type": ["string", "null"] }
+      }
+    },
+    "Observation": {
+      "type": "object",
+      "required": ["source_id", "parameter", "value", "unit", "qualityCodes"],
+      "properties": {
+        "source":       { "type": ["string", "null"] },
+        "source_id":    { "type": "string" },
+        "parameter":    { "type": "string" },
+        "value":        {},
+        "unit":         { "type": "string" },
+        "qualityCodes": {
+          "type": "array",
+          "items": { "type": "integer" }
+        }
+      }
+    },
+    "DataPoint": {
+      "type": "object",
+      "required": ["source_id", "time", "observations"],
+      "properties": {
+        "dp_id":     { "type": ["string", "null"] },
+        "source":    { "type": ["string", "null"] },
+        "source_id": { "type": "string" },
+        "location":  {
+          "anyOf": [
+            { "$ref": "#/definitions/Location" },
+            { "type": "null" }
+          ]
+        },
+        "time":      { "type": "string" },
+        "observations": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/Observation" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+    "name": "node-red-project",
+    "description": "A Node-RED Project",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "ajv": "^8.20.0",
+        "libxmljs2": "^0.37.0",
+        "node-red-contrib-flowtest": "^0.1.2",
+        "smartocean": "file:/home/jonas/Skule/smartocean-nodered-replica/smartocean",
+        "xmllint-wasm": "^5.2.0"
+    }
+}

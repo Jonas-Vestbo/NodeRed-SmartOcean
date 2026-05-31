@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by John Peter Guzikowski (AADI) -->
+<xs:schema xmlns="http://www.aadi.no/RTConfigSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.aadi.no/RTConfigSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Instance">
+		<xs:annotation>
+			<xs:documentation>Instance element. Holds property values in cases when the parent category is a multiple instance category.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="Index" type="xs:int" use="required">
+						<xs:annotation>
+							<xs:documentation>Instance index (zero based).</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Property">
+		<xs:annotation>
+			<xs:documentation>Property value. If the parent category is a multiple instance category, the property values are found in Instance child elements.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:sequence>
+				<xs:element ref="Instance" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>List of instance values. Only relevant if this property is part of a multiple instance property category.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="ID" type="xs:int" use="required">
+				<xs:annotation>
+					<xs:documentation>Property ID. Unique within the parent PropertyCategory.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="Descr" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>Property description.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="Type" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>Property data type.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="Format" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>Recommended print format (C/C++ printf syntax).</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="Unit" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>Property unit.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="Min" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>Minimum allowed property value.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="Max" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>Maximum allowed property value.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="Enum" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>List of allowed values for this property, on the format [Descr]=[Value]. Each value/descr-pair is separated by a semicolon.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="Defaults" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>List of default (suggested) values for this property. The list is separated by semicolon.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="Access" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>Required access level for reading and altering this property, e.g. "R1W1".</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="EnableDependencyID" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>If present, this value is the ID of a property (of type VT_BOOL) that needs to be TRUE to allow editing of this property. The format is [PropCategoryID]:[PropID], where the first part is optional.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="DisableDependencyID" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>If present, this value is the ID of a property (of type VT_BOOL) that needs to be FALSE to allow editing of this property. The format is [PropCategoryID]:[PropID], where the first part is optional.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="StandAlone" type="xs:boolean" use="optional">
+				<xs:annotation>
+					<xs:documentation>If true, the property should only be read/write if the sensor is stand alone (not connected to a device).</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="EditWhileRecording" type="xs:boolean" use="optional">
+				<xs:annotation>
+					<xs:documentation>If true, the property may be edited while the device recorder is running.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="ResetRequired" type="xs:boolean" use="optional">
+				<xs:annotation>
+					<xs:documentation>If true, the device must be reset after this property has been changed.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="SensorLookup" type="xs:boolean" use="optional">
+				<xs:annotation>
+					<xs:documentation>If true and property of Type VT_BSTR, the property value should be a SensorID selected from a list of Sensor</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="ParameterLookupSensorRef" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>If pressent and property of Type VT_I2 or VT_I4, the property value should be a ParameterID selected from a list of parameters from the sensor with the SensorID located in the property this attribute refers to. The format is [PropCategoryID]:[PropID], where the first part is optional.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="LookupUnits" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>If SensorLookup or ParameterLookupSensorRef is used only show sensors or paramerters with specified units (Show all if not specified)</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="InstanceCount">
+		<xs:annotation>
+			<xs:documentation>Instance count. The number of instances in each child property.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="Min" type="xs:int" use="optional" default="0">
+						<xs:annotation>
+							<xs:documentation>Minimum number of required instances, default=0.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="Max" type="xs:int" use="optional" default="255">
+						<xs:annotation>
+							<xs:documentation>Maximum number of allowed instances, default=255.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="Access" type="xs:string" use="optional">
+						<xs:annotation>
+							<xs:documentation>Required access level for reading and altering the  number of instances, e.g. "R1W1".</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PropertyCategory">
+		<xs:annotation>
+			<xs:documentation>Property category. Contains zero or more Property elements.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="InstanceCount" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>If this is a multiple instance property category, then this element holds the number of instances found in each property.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="Property" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>List of Property elements in this PropertyCategory element.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="ID" type="xs:int" use="required">
+				<xs:annotation>
+					<xs:documentation>Property category ID. Unique within the parent ConfigCategory element.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="Descr" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>Property category description.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="MultiInstance" type="xs:boolean" use="optional">
+				<xs:annotation>
+					<xs:documentation>Value indicating if this is a multiple instance property category.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="Access" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>Reserved for future use.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="StandAlone" type="xs:boolean" use="optional">
+				<xs:annotation>
+					<xs:documentation>Reserved for future use.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ConfigCategory">
+		<xs:annotation>
+			<xs:documentation>Configuration category. Contains zero or more PropertyCategoy elements.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="PropertyCategory" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>List of PropertyCategory elements in this ConfigCategory element.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="ID" type="xs:int" use="required">
+				<xs:annotation>
+					<xs:documentation>Configuration category ID. Unique within the parent NodeConfig element.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="Descr" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>Configuration category description.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="Access" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>Reserved for future use.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="StandAlone" type="xs:boolean" use="optional">
+				<xs:annotation>
+					<xs:documentation>Reserved for future use.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="NodeConfig">
+		<xs:annotation>
+			<xs:documentation>Configuration for a single node (internal node or sensor). Contains zero or more ConfigCategory elements.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ConfigCategory" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>List of ConfigCategory elements in this NodeConfig element.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="ID" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>Node ID</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="SerialNo" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>Node serial number</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="ProdNo" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>Node product number</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="ProdName" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>Node product name</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="Descr" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>Node description</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="Adr" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>Internal AiCap node address.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="IsSensor" type="xs:boolean" use="optional">
+				<xs:annotation>
+					<xs:documentation>Value indicating if this node is a sensor (true) or an internal device node (false).</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="ProtocolVer" type="xs:double" use="required">
+				<xs:annotation>
+					<xs:documentation>Configuration protocol version.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="ConfigVer" type="xs:double" use="required">
+				<xs:annotation>
+					<xs:documentation>Configuration version.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="NodeTypeID" type="xs:int" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Config">
+		<xs:annotation>
+			<xs:documentation>Configuration root. Contains zero or more NodeConfig elements.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="NodeConfig" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>List of NodeConfig elements in this Config element.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="ID" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>Configuration ID.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="Time" type="xs:dateTime" use="required">
+				<xs:annotation>
+					<xs:documentation>Configuration timestamp.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

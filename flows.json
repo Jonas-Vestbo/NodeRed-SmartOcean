@@ -1,0 +1,1974 @@
+[
+    {
+        "id": "a8fe34f629d708a1",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "4a407c011dfafef1",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "8be5eb4eb96b407e",
+        "type": "tab",
+        "label": "Flow 3",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "712fcd6a17e3f9f0",
+        "type": "tab",
+        "label": "Flow 4",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "aad11111aad11111",
+        "type": "tab",
+        "label": "AADI Service",
+        "disabled": false,
+        "info": "AADI XML \u2192 SmartOcean TimeSeriesData pipeline",
+        "env": []
+    },
+    {
+        "id": "testaaditab00001",
+        "type": "tab",
+        "label": "AADI Tests",
+        "disabled": true,
+        "info": "Python-parity test corpus for AADI pipeline (mirrors test_aadi_converter.py)",
+        "env": []
+    },
+    {
+        "id": "wsensesvctab0001",
+        "type": "tab",
+        "label": "WSense Service",
+        "disabled": false,
+        "info": "WSense JSON \u2192 SmartOcean TimeSeriesData pipeline.",
+        "env": []
+    },
+    {
+        "id": "wsensetestab001",
+        "type": "tab",
+        "label": "WSense Tests",
+        "disabled": true,
+        "info": "Python-parity test corpus for WSense pipeline (mirrors test_wsense_converter.py).",
+        "env": []
+    },
+    {
+        "id": "virtsvctab00001",
+        "type": "tab",
+        "label": "Virtual Service",
+        "disabled": false,
+        "info": "Pre-formatted SmartOcean JSON pass-through (validates only).",
+        "env": []
+    },
+    {
+        "id": "de0d27225549eda2",
+        "type": "subflow",
+        "name": "cmems-standard",
+        "info": "",
+        "category": "SmartOcean",
+        "in": [
+            {
+                "x": 280,
+                "y": 100,
+                "wires": [
+                    {
+                        "id": "26da5b9af011ad69"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 740,
+                "y": 100,
+                "wires": [
+                    {
+                        "id": "26da5b9af011ad69",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [
+            {
+                "name": "CSV_PATH",
+                "type": "str",
+                "value": "/home/jonas/Skule/data_transformer/transformer/schemas/CMEMS_physical_parameters.csv"
+            }
+        ],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "815da58933cee030",
+        "type": "subflow",
+        "name": "assemble-timeseries",
+        "info": "",
+        "category": "SmartOcean",
+        "in": [
+            {
+                "x": 300,
+                "y": 100,
+                "wires": [
+                    {
+                        "id": "429333529bfa2de0"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 720,
+                "y": 100,
+                "wires": [
+                    {
+                        "id": "429333529bfa2de0",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [
+            {
+                "name": "FORMAT_VERSION",
+                "type": "str",
+                "value": "SMARTOCEAN_V1"
+            }
+        ],
+        "meta": {},
+        "color": "#3FADB5"
+    },
+    {
+        "id": "5abdf5e22350bc81",
+        "type": "subflow",
+        "name": "smartocean-validate",
+        "info": "",
+        "category": "SmartOcean",
+        "in": [
+            {
+                "x": 180,
+                "y": 180,
+                "wires": [
+                    {
+                        "id": "84b4c1ea3eba27f3"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 580,
+                "y": 140,
+                "wires": [
+                    {
+                        "id": "84b4c1ea3eba27f3",
+                        "port": 0
+                    }
+                ]
+            },
+            {
+                "x": 620,
+                "y": 220,
+                "wires": [
+                    {
+                        "id": "84b4c1ea3eba27f3",
+                        "port": 1
+                    }
+                ]
+            }
+        ],
+        "env": [
+            {
+                "name": "SCHEMA_PATH",
+                "type": "str",
+                "value": "/home/jonas/Skule/nodered-schemas/smartocean.schema.json"
+            }
+        ],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "45c14f8d381b5701",
+        "type": "subflow",
+        "name": "aadi-pipeline",
+        "info": "AADI XML \u2192 SmartOcean TimeSeriesData pipeline.\n\n**Input**: raw XML string in `msg.payload`.\n**Output 1** (valid): full SmartOcean `TimeSeriesData`.\n**Output 2** (error): `msg.error` set (XSD, projection, or schema failure).",
+        "in": [
+            {
+                "x": 80,
+                "y": 180,
+                "wires": [
+                    {
+                        "id": "f172c13388b8dd7e"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 1470,
+                "y": 320,
+                "wires": [
+                    {
+                        "id": "5b366a4143362726",
+                        "port": 0
+                    }
+                ]
+            },
+            {
+                "x": 1110,
+                "y": 320,
+                "wires": [
+                    {
+                        "id": "f172c13388b8dd7e",
+                        "port": 1
+                    },
+                    {
+                        "id": "87bf2b14a2173897",
+                        "port": 1
+                    },
+                    {
+                        "id": "5b366a4143362726",
+                        "port": 1
+                    }
+                ]
+            }
+        ],
+        "color": "#C0DEED",
+        "outputLabels": [
+            "valid",
+            "error"
+        ]
+    },
+    {
+        "id": "wsenseflw00000001",
+        "type": "subflow",
+        "name": "wsense-pipeline",
+        "info": "WSense JSON \u2192 SmartOcean TimeSeriesData pipeline.\n\n**Input**: raw JSON string in `msg.payload`.\n**Output 1** (valid): full SmartOcean `TimeSeriesData`.\n**Output 2** (error): `msg.error` set.",
+        "category": "SmartOcean",
+        "in": [
+            {
+                "x": 80,
+                "y": 180,
+                "wires": [
+                    {
+                        "id": "wsenfnvalid0001"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 1700,
+                "y": 120,
+                "wires": [
+                    {
+                        "id": "wsensubsoval001",
+                        "port": 0
+                    }
+                ]
+            },
+            {
+                "x": 1700,
+                "y": 260,
+                "wires": [
+                    {
+                        "id": "wsenfnvalid0001",
+                        "port": 1
+                    },
+                    {
+                        "id": "wsenfnprojct001",
+                        "port": 1
+                    },
+                    {
+                        "id": "wsensubsoval001",
+                        "port": 1
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#87C5DA",
+        "outputLabels": [
+            "valid",
+            "error"
+        ]
+    },
+    {
+        "id": "virtflw00000001",
+        "type": "subflow",
+        "name": "virtual-pipeline",
+        "info": "Virtual / identity pipeline. Input is already SmartOcean JSON.\n\n**Input**: JSON in `msg.payload` (string or object).\n**Output 1** (valid): SmartOcean TimeSeriesData, unchanged.\n**Output 2** (error): `msg.error` set (JSON parse or schema check).",
+        "category": "SmartOcean",
+        "in": [
+            {
+                "x": 80,
+                "y": 180,
+                "wires": [
+                    {
+                        "id": "virtfnvalid0001"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 900,
+                "y": 120,
+                "wires": [
+                    {
+                        "id": "virtsubsoval001",
+                        "port": 0
+                    }
+                ]
+            },
+            {
+                "x": 900,
+                "y": 260,
+                "wires": [
+                    {
+                        "id": "virtfnvalid0001",
+                        "port": 1
+                    },
+                    {
+                        "id": "virtsubsoval001",
+                        "port": 1
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#C7BFD0",
+        "outputLabels": [
+            "valid",
+            "error"
+        ]
+    },
+    {
+        "id": "804846ccc9a5aedb",
+        "type": "mqtt-broker",
+        "name": "LOCAL MOSQUITTO",
+        "broker": "localhost",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "26da5b9af011ad69",
+        "type": "function",
+        "z": "de0d27225549eda2",
+        "name": "lookup",
+        "func": "const table = context.get('table');\nconst WATER = context.get('WATER');\nconst AIR = context.get('AIR');\nconst { metadata, rows } = msg.payload;\n\nmsg.payload = {\n    metadata,\n    rows: rows.map(r => {\n        const scope = (r.scope || 'WATER').toUpperCase();\n        if (scope === 'SOURCE') {\n            return { ...r, parameter: r.parameter_raw, unit: r.unit_raw };\n        }\n        const needle = (r.parameter_raw || '').toLowerCase();\n        const cats = scope === 'AIR' ? AIR : WATER;\n        const hit = table.find(x =>\n            (x.variable.includes(needle) || x.longName.includes(needle))\n            && cats.has(x.category)\n        );\n        return hit\n            ? { ...r, parameter: hit.stdName, unit: hit.unit }\n            : { ...r, parameter: r.parameter_raw, unit: r.unit_raw };\n    })\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "const text = fs.readFileSync(env.get('CSV_PATH'), 'utf8');\nconst lines = text.split(/\\r?\\n/).filter(l => l.trim());\nconst header = lines[0].split(',');\nconst idx = name => header.indexOf(name);\nconst cCat = idx('Category');\nconst cVar = idx('variable name');\nconst cLong = idx('long_name');\nconst cUnit = idx('unit');\nconst cStd = idx('CF standard_name');\n\nconst table = lines.slice(1).map(l => {\n    const c = l.split(',');\n    return {\n        category: (c[cCat] || '').toLowerCase(),\n        variable: (c[cVar] || '').toLowerCase(),\n        longName: (c[cLong] || '').toLowerCase(),\n        unit: c[cUnit] || '',\n        stdName: c[cStd] || ''\n    };\n});\n\ncontext.set('table', table);\ncontext.set('WATER', new Set(['physical oceanography', 'bgc', 'sea level', 'waves']));\ncontext.set('AIR', new Set(['meteorological']));",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "fs",
+                "module": "fs"
+            }
+        ],
+        "x": 500,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "429333529bfa2de0",
+        "type": "function",
+        "z": "815da58933cee030",
+        "name": "assemble",
+        "func": "const { metadata, rows } = msg.payload;\nconst formatVersion = env.get('FORMAT_VERSION') || 'SMARTOCEAN_V1';\nconst assignDpId    = (env.get('ASSIGN_DP_ID') || '').toLowerCase() === 'true';\n\nconst groups = new Map();\nfor (const r of rows) {\n    const locKey = r.location\n        ? `${r.location.latitude},${r.location.longitude}`\n        : 'null';\n    const key = `${r.time}|${locKey}|${r.hub_source_id}`;\n\n    if (!groups.has(key)) {\n        // Field order matches pydantic DataPoint declaration order.\n        // null is emitted explicitly for optional fields to mirror pydantic JSON dump.\n        const dp = {\n            dp_id:     null,\n            source:    r.hub_source    ?? null,\n            source_id: r.hub_source_id,\n            location:  r.location      ?? null,\n            time:      r.time,\n            observations: []\n        };\n        groups.set(key, dp);\n    }\n\n    // Field order matches pydantic Observation declaration order.\n    const obs = {\n        source:       r.sensor_source ?? null,\n        source_id:    r.sensor_id,\n        parameter:    r.parameter,\n        value:        r.value,\n        unit:         r.unit,\n        qualityCodes: r.qualityCodes || [0]\n    };\n    groups.get(key).observations.push(obs);\n}\n\nconst dataPoints = Array.from(groups.values());\nif (assignDpId) {\n    dataPoints.forEach((dp, i) => { dp.dp_id = String(i + 1); });\n}\n\nmsg.payload = {\n    format: formatVersion,\n    metadata: metadata,\n    data: dataPoints\n};\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "84b4c1ea3eba27f3",
+        "type": "function",
+        "z": "5abdf5e22350bc81",
+        "name": "validate",
+        "func": "const validate = context.get('validate');\nif (validate(msg.payload)) return [msg, null];\nmsg.error = JSON.stringify(validate.errors);\nreturn [null, msg];\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "const schemaText = fs.readFileSync(env.get('SCHEMA_PATH'), 'utf8');\nconst schema = JSON.parse(schemaText);\nconst ajv = new Ajv({ allErrors: true });\ncontext.set('validate', ajv.compile(schema));\n",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "fs",
+                "module": "fs"
+            },
+            {
+                "var": "Ajv",
+                "module": "ajv"
+            }
+        ],
+        "x": 360,
+        "y": 180,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "f172c13388b8dd7e",
+        "type": "function",
+        "z": "45c14f8d381b5701",
+        "name": "aadi-validate",
+        "func": "const xmlString = typeof msg.payload === 'string'\n    ? msg.payload\n    : msg.payload.toString('utf8');\n\nlet result;\ntry {\n    result = await xmllint.validateXML({\n        xml: xmlString,\n        schema: context.get('mainSchema'),\n        preload: context.get('preload')\n    });\n} catch (e) {\n    msg.error = 'XSD threw: ' + (e && e.message ? e.message : String(e));\n    return [null, msg];\n}\n\nif (result.errors.length === 0) {\n    msg.payload = xmlString;\n    return [msg, null];\n}\nmsg.error = 'XSD: ' + result.errors.join('; ');\nreturn [null, msg];\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "const SCHEMA_DIR = '/home/jonas/Skule/noderedsmartocean/schemas';\ncontext.set('mainSchema', fs.readFileSync(`${SCHEMA_DIR}/RTOutSchema.xsd`, 'utf8'));\ncontext.set('preload', [\n    { fileName: 'RTConfigSchema.xsd',       contents: fs.readFileSync(`${SCHEMA_DIR}/RTConfigSchema.xsd`, 'utf8') },\n    { fileName: 'RTDeviceLayoutSchema.xsd', contents: fs.readFileSync(`${SCHEMA_DIR}/RTDeviceLayoutSchema.xsd`, 'utf8') }\n]);\n",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "fs",
+                "module": "fs"
+            },
+            {
+                "var": "xmllint",
+                "module": "xmllint-wasm"
+            }
+        ],
+        "x": 400,
+        "y": 180,
+        "wires": [
+            [
+                "56c5716ee34f89e0"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "56c5716ee34f89e0",
+        "type": "xml",
+        "z": "45c14f8d381b5701",
+        "name": "parse XML",
+        "property": "payload",
+        "attr": "",
+        "chr": "",
+        "x": 710,
+        "y": 140,
+        "wires": [
+            [
+                "87bf2b14a2173897"
+            ]
+        ]
+    },
+    {
+        "id": "87bf2b14a2173897",
+        "type": "function",
+        "z": "45c14f8d381b5701",
+        "name": "aadi-project",
+        "func": "const device = msg.payload.Device;\nif (!device) { msg.error = 'missing <Device>'; return [null, msg]; }\n\nconst attr = device.$ || {};\nif (!attr.Descr)     { msg.error = 'missing Device @Descr';     return [null, msg]; }\nif (!attr.ID)        { msg.error = 'missing Device @ID';        return [null, msg]; }\nif (!attr.SessionID) { msg.error = 'missing Device @SessionID'; return [null, msg]; }\n\nconst deviceDescr = attr.Descr;\nconst deviceId    = attr.ID;\nconst sessionId   = attr.SessionID;\n\nif (!device.SystemInformation) {\n    msg.error = 'missing <SystemInformation>';\n    return [null, msg];\n}\nconst sysInfoContainer = device.SystemInformation?.[0];\nif (!sysInfoContainer || typeof sysInfoContainer !== 'object' || !sysInfoContainer.SystemInfo) {\n    msg.error = 'missing <SystemInfo>';\n    return [null, msg];\n}\nconst sysInfoList = sysInfoContainer.SystemInfo;\nconst findSysInfo = (descr) => {\n    const hit = sysInfoList.find(i => i.$?.Descr === descr);\n    return hit?._ || '';\n};\nconst locationDescr = findSysInfo('Location ');\nconst geoPosition   = findSysInfo('GeoPosition');\n\nlet location = null;\nconst parts = (geoPosition || '').split(',');\nif (parts.length === 2) {\n    const lat = parseFloat(parts[0]);\n    const lon = parseFloat(parts[1]);\n    if (!isNaN(lat) && !isNaN(lon)) location = { latitude: lat, longitude: lon };\n}\n\nconst data = device.Data?.[0];\nif (!data) { msg.error = 'missing <Data>'; return [null, msg]; }\nif (!data.Time || !data.Time[0])  { msg.error = 'missing <Data><Time>';  return [null, msg]; }\nif (!data.SensorData)             { msg.error = 'missing <SensorData>';  return [null, msg]; }\nif (!data.SystemData)             { msg.error = 'missing <SystemData>';  return [null, msg]; }\n\nconst dataTime = data.Time[0].replace('Z', '+00:00');\n\nlet sensors = [...data.SensorData];\nconst sysList = Array.isArray(data.SystemData) ? data.SystemData : [data.SystemData];\nsensors.push(...sysList);\n\nconst rows = [];\nfor (const sensor of sensors) {\n    if (!sensor.$?.ID)      { msg.error = 'sensor missing @ID';          return [null, msg]; }\n    if (!sensor.Parameters) { msg.error = 'sensor missing <Parameters>'; return [null, msg]; }\n    const params = sensor.Parameters?.[0];\n    if (!params?.Point)     { msg.error = 'sensor missing <Point>';      return [null, msg]; }\n\n    const sensorId    = sensor.$.ID;\n    const sensorDescr = sensor.$.Descr || '';\n    const points = Array.isArray(params.Point) ? params.Point : [params.Point];\n    for (const point of points) {\n        const valueEl = point.Value;\n        if (valueEl === undefined || valueEl === null) continue;\n        const value = Array.isArray(valueEl) ? valueEl[0] : valueEl;\n        rows.push({\n            time: dataTime,\n            location,\n            hub_source_id: deviceId,\n            hub_source:    deviceDescr,\n            sensor_id:     sensorId,\n            sensor_source: sensorDescr,\n            parameter_raw: point.$?.Descr || '',\n            value:         String(value),\n            unit_raw:      point.$?.Unit || '',\n            scope:         'SOURCE'\n        });\n    }\n}\n\nmsg.payload = {\n    metadata: {\n        description: locationDescr ? `${deviceDescr}: ${locationDescr}` : deviceDescr,\n        timeseries: sessionId,\n        origin: sessionId\n    },\n    rows\n};\nreturn [msg, null];\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 140,
+        "wires": [
+            [
+                "a2c9b230e2033698"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "a2c9b230e2033698",
+        "type": "subflow:de0d27225549eda2",
+        "z": "45c14f8d381b5701",
+        "name": "",
+        "env": [],
+        "x": 1150,
+        "y": 120,
+        "wires": [
+            [
+                "766fbbd87270b0bf"
+            ]
+        ]
+    },
+    {
+        "id": "766fbbd87270b0bf",
+        "type": "subflow:815da58933cee030",
+        "z": "45c14f8d381b5701",
+        "name": "",
+        "env": [],
+        "x": 1380,
+        "y": 120,
+        "wires": [
+            [
+                "5b366a4143362726"
+            ]
+        ]
+    },
+    {
+        "id": "5b366a4143362726",
+        "type": "subflow:5abdf5e22350bc81",
+        "z": "45c14f8d381b5701",
+        "name": "",
+        "env": [],
+        "x": 1620,
+        "y": 120,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "wsenfnvalid0001",
+        "type": "function",
+        "z": "wsenseflw00000001",
+        "name": "wsense-validate",
+        "func": "// Faithful to Python's validate_wsense_format \u2192 validate_json_str: just confirm it parses.\nlet parsed;\ntry {\n    parsed = typeof msg.payload === 'string' ? JSON.parse(msg.payload) : msg.payload;\n} catch (e) {\n    msg.error = 'WSense JSON parse: ' + e.message;\n    return [null, msg];\n}\nmsg.payload = parsed;\nreturn [msg, null];\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 180,
+        "wires": [
+            [
+                "wsenfnprojct001"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "wsenfnprojct001",
+        "type": "function",
+        "z": "wsenseflw00000001",
+        "name": "wsense-project",
+        "func": "const payload = msg.payload;\nconst definitions = payload.definitions || [];\n\nif (!payload.nodes) {\n    msg.error = 'WSense: missing <nodes>';\n    return [null, msg];\n}\n\nconst getDefUnit = (defs, name) => {\n    const d = defs.find(x => x && x.name === name);\n    return d ? (d.unit ?? null) : null;\n};\n\n// Preserve microsecond precision from the input string when it's UTC.\n// Python normalizes to UTC (with \u00b5s precision); JS Date only does ms,\n// so we only pass through when the input is already UTC.\nfunction toUtcIso(ts) {\n    if (typeof ts === 'string') {\n        // Mirror Python's datetime.isoformat(): drop fractional seconds when all zeros\n        let s = ts.replace(/\\.0+(?=Z|[+-])/, '');\n        if (s.endsWith('+00:00')) return s;\n        if (s.endsWith('Z'))      return s.slice(0, -1) + '+00:00';\n    }\n    const d = new Date(ts);\n    if (isNaN(d.getTime())) throw new Error('bad date: ' + ts);\n    return d.toISOString().replace('Z', '+00:00');     // fallback (lossy)\n}\n\nconst rows = [];\nlet metadata = null;\n\nfor (const wrap of payload.nodes) {\n    const node = wrap?.node;\n    if (!node) { msg.error = 'WSense: missing node.node'; return [null, msg]; }\n    const coords = node.coordinates;\n    if (!coords) { msg.error = 'WSense: missing node.coordinates'; return [null, msg]; }\n    const location = { latitude: coords.latitude, longitude: coords.longitude };\n\n    metadata = {\n        description: 'Wsense data from B2B API',\n        timeseries: 'wsense',\n        origin: node.name\n    };\n\n    const sourceIdByTree = {};\n    const sourceLabelByTree = {};\n    for (const probe of (node.children || [])) {\n        sourceIdByTree[probe.treeId] = probe.id;\n        sourceLabelByTree[probe.treeId] = `${probe.name} ${probe.type}`;\n    }\n\n    if (!Array.isArray(node.data)) {\n        msg.error = 'WSense: missing node.data';\n        return [null, msg];\n    }\n\n    for (const paramWrap of node.data) {\n        const entries = Object.entries(paramWrap);\n        for (const [paramName, paramVal] of entries) {\n            const unitRaw = getDefUnit(definitions, paramName);\n            if (unitRaw === null || unitRaw === undefined) {\n                msg.error = \"WSense: missing unit in definitions for '\" + paramName + \"'\";\n                return [null, msg];\n            }\n            const scope = unitRaw.toLowerCase().includes('battery') ? 'SOURCE' : 'WATER';\n\n            const dataArr = paramVal?.data;\n            if (!Array.isArray(dataArr)) continue;\n\n            for (const dp of dataArr) {\n                let time;\n                try { time = toUtcIso(dp.timestamp); }\n                catch (e) { msg.error = 'WSense: ' + e.message; return [null, msg]; }\n                const sensorId    = sourceIdByTree[dp.probe_type] || '';\n                const sensorLabel = sourceLabelByTree[dp.probe_type] || '';\n                rows.push({\n                    time,\n                    location,\n                    hub_source_id: node.id,\n                    hub_source:    node.name,\n                    sensor_id:     sensorId,\n                    sensor_source: sensorLabel,\n                    parameter_raw: paramName,\n                    value:         dp.value,\n                    unit_raw:      unitRaw,\n                    scope\n                });\n            }\n        }\n    }\n}\n\nmsg.payload = { metadata, rows };\nreturn [msg, null];\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 180,
+        "wires": [
+            [
+                "wsensubcmems001"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "wsensubcmems001",
+        "type": "subflow:de0d27225549eda2",
+        "z": "wsenseflw00000001",
+        "name": "",
+        "env": [],
+        "x": 810,
+        "y": 160,
+        "wires": [
+            [
+                "wsensubasmbl001"
+            ]
+        ]
+    },
+    {
+        "id": "wsensubasmbl001",
+        "type": "subflow:815da58933cee030",
+        "z": "wsenseflw00000001",
+        "name": "",
+        "env": [
+            {
+                "name": "ASSIGN_DP_ID",
+                "type": "str",
+                "value": "true"
+            }
+        ],
+        "x": 1060,
+        "y": 160,
+        "wires": [
+            [
+                "wsensubsoval001"
+            ]
+        ]
+    },
+    {
+        "id": "wsensubsoval001",
+        "type": "subflow:5abdf5e22350bc81",
+        "z": "wsenseflw00000001",
+        "name": "",
+        "env": [],
+        "x": 1300,
+        "y": 160,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "virtfnvalid0001",
+        "type": "function",
+        "z": "virtflw00000001",
+        "name": "virtual-validate",
+        "func": "// Virtual: input is already SmartOcean JSON. Parse and pass through.\nlet parsed;\ntry {\n    parsed = typeof msg.payload === 'string' ? JSON.parse(msg.payload) : msg.payload;\n} catch (e) {\n    msg.error = 'Virtual JSON parse: ' + e.message;\n    return [null, msg];\n}\nmsg.payload = parsed;\nreturn [msg, null];\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 180,
+        "wires": [
+            [
+                "virtsubsoval001"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "virtsubsoval001",
+        "type": "subflow:5abdf5e22350bc81",
+        "z": "virtflw00000001",
+        "name": "",
+        "env": [],
+        "x": 500,
+        "y": 180,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "79c3462f10f15d13",
+        "type": "mqtt in",
+        "z": "712fcd6a17e3f9f0",
+        "name": "",
+        "topic": "test/hello",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "804846ccc9a5aedb",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 140,
+        "wires": [
+            [
+                "4ee874a70696bc06"
+            ]
+        ]
+    },
+    {
+        "id": "b15a147d63113673",
+        "type": "debug",
+        "z": "712fcd6a17e3f9f0",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1220,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "38420b57a4934399",
+        "type": "debug",
+        "z": "712fcd6a17e3f9f0",
+        "name": "ERROR",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1200,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "4ee874a70696bc06",
+        "type": "subflow:45c14f8d381b5701",
+        "z": "712fcd6a17e3f9f0",
+        "name": "",
+        "x": 660,
+        "y": 140,
+        "wires": [
+            [
+                "b15a147d63113673"
+            ],
+            [
+                "38420b57a4934399"
+            ]
+        ]
+    },
+    {
+        "id": "aad12222aad11112",
+        "type": "inject",
+        "z": "aad11111aad11111",
+        "name": "trigger",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 50,
+        "y": 180,
+        "wires": [
+            [
+                "aad12222aad11113"
+            ]
+        ]
+    },
+    {
+        "id": "aad12222aad11113",
+        "type": "file in",
+        "z": "aad11111aad11111",
+        "name": "AADI sample",
+        "filename": "/home/jonas/Skule/data_transformer/tests/testdata/aadi/valid_data/aaditestdata.xml",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "utf8",
+        "allProps": false,
+        "x": 240,
+        "y": 180,
+        "wires": [
+            [
+                "srv0aadipipeinst"
+            ]
+        ]
+    },
+    {
+        "id": "aad12222aad1111a",
+        "type": "debug",
+        "z": "aad11111aad11111",
+        "name": "valid TimeSeries",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1690,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "srv0aadipipeinst",
+        "type": "subflow:45c14f8d381b5701",
+        "z": "aad11111aad11111",
+        "name": "",
+        "env": [],
+        "x": 660,
+        "y": 160,
+        "wires": [
+            [
+                "aad12222aad1111a",
+                "aadij2s010000000"
+            ],
+            [
+                "srv0aadidbgerr01"
+            ]
+        ]
+    },
+    {
+        "id": "srv0aadidbgerr01",
+        "type": "debug",
+        "z": "aad11111aad11111",
+        "name": "pipeline error",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "aadimqttin010000",
+        "type": "mqtt in",
+        "z": "aad11111aad11111",
+        "name": "subscribe test/aadi/in",
+        "topic": "test/aadi/in",
+        "qos": "2",
+        "datatype": "utf8",
+        "broker": "804846ccc9a5aedb",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 240,
+        "wires": [
+            [
+                "srv0aadipipeinst"
+            ]
+        ]
+    },
+    {
+        "id": "aadij2s010000000",
+        "type": "json",
+        "z": "aad11111aad11111",
+        "name": "stringify",
+        "property": "payload",
+        "action": "str",
+        "pretty": false,
+        "x": 800,
+        "y": 160,
+        "wires": [
+            [
+                "aadichgraw010000"
+            ]
+        ]
+    },
+    {
+        "id": "aadichgraw010000",
+        "type": "function",
+        "z": "aad11111aad11111",
+        "name": "topic /in\u2192/raw",
+        "func": "// Append /raw suffix to msg.topic, stripping /in if present.\n// Returns null if topic is empty (e.g., file-in trigger) so we don't publish junk.\nconst t = msg.topic || '';\nif (!t) return null;\nmsg.topic = t.endsWith('/in') ? t.slice(0, -3) + '/raw' : t + '/raw';\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 160,
+        "wires": [
+            [
+                "aadimqttout10000"
+            ]
+        ]
+    },
+    {
+        "id": "aadimqttout10000",
+        "type": "mqtt out",
+        "z": "aad11111aad11111",
+        "name": "publish /raw suffix",
+        "topic": "",
+        "qos": "2",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "804846ccc9a5aedb",
+        "x": 1180,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "testaaditesti001",
+        "type": "test inject",
+        "z": "testaaditab00001",
+        "name": "AADI tests",
+        "onstart": true,
+        "tests": "  function testDirectory(dir, expectError, expectedFailures = new Set()) {\n      return fs.readdirSync(dir)\n          .filter(f => f.endsWith('.xml'))\n          .map((f, i) => {\n              const shouldError = expectError || expectedFailures.has(f);\n              return {\n                  label: `${shouldError ? 'should error' : 'should pass'}: ${f}`,\n                  delay: 100 + i * 20,\n                  timeout: 80000,\n                  inject: { filename: path.join(dir, f) },\n                  assert: function(msg) {\n                      if (shouldError) {\n                          should(msg).have.property('error');\n                      } else {\n                          should(msg).not.have.property('error');\n                          should(msg.payload).have.property('format', 'SMARTOCEAN_V1');\n                      }\n                  }\n              };\n          });\n  }\n\n  const base = '/home/jonas/Skule/data_transformer/tests/testdata/aadi';\n\n  const nordKnownFailures = new Set([\n      '20220510T170041.xml',\n      '20220510T170041_0.xml',\n      '20220510T170041_1.xml'\n  ]);\n\n  const sorKnownFailures = new Set([\n      '20220514T121645.xml',\n      '20220520T023110.xml'\n  ]);\n\n  return [\n      ...testDirectory(`${base}/valid_data`,                  false),\n      ...testDirectory(`${base}/invalid_aadi`,                true),\n      ...testDirectory(`${base}/erroneous_data`,              true),\n      ...testDirectory(`${base}/SFI_Austevoll_NordDestination`, false, nordKnownFailures),\n      ...testDirectory(`${base}/SFI_Austevoll_SorDestination`,  false, sorKnownFailures)\n  ];\n",
+        "x": 160,
+        "y": 180,
+        "wires": [
+            [
+                "testaadifilein01"
+            ],
+            [
+                "testaadidbgrpt01"
+            ]
+        ]
+    },
+    {
+        "id": "testaadifilein01",
+        "type": "file in",
+        "z": "testaaditab00001",
+        "name": "read XML",
+        "filename": "filename",
+        "filenameType": "msg",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "utf8",
+        "allProps": false,
+        "x": 410,
+        "y": 160,
+        "wires": [
+            [
+                "tst0aadipipeinst"
+            ]
+        ]
+    },
+    {
+        "id": "testaadiassert01",
+        "type": "assert",
+        "z": "testaaditab00001",
+        "name": "",
+        "x": 1620,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "testaadidbgrpt01",
+        "type": "debug",
+        "z": "testaaditab00001",
+        "name": "Test report",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 370,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "testaadidbgvld01",
+        "type": "debug",
+        "z": "testaaditab00001",
+        "name": "Pipeline output",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1620,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "tst0aadipipeinst",
+        "type": "subflow:45c14f8d381b5701",
+        "z": "testaaditab00001",
+        "name": "",
+        "env": [],
+        "x": 660,
+        "y": 180,
+        "wires": [
+            [
+                "testaadiassert01",
+                "testaadidbgvld01"
+            ],
+            [
+                "testaadiassert01"
+            ]
+        ]
+    },
+    {
+        "id": "wsensesvcinj001",
+        "type": "inject",
+        "z": "wsensesvctab0001",
+        "name": "trigger",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 120,
+        "wires": [
+            [
+                "wsensesvcfile01"
+            ]
+        ]
+    },
+    {
+        "id": "wsensesvcfile01",
+        "type": "file in",
+        "z": "wsensesvctab0001",
+        "name": "WSense sample",
+        "filename": "/home/jonas/Skule/data_transformer/tests/testdata/wsense/valid_data/payload.json",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "utf8",
+        "allProps": false,
+        "x": 320,
+        "y": 120,
+        "wires": [
+            [
+                "wsensesvcpipe01"
+            ]
+        ]
+    },
+    {
+        "id": "wsensesvcpipe01",
+        "type": "subflow:wsenseflw00000001",
+        "z": "wsensesvctab0001",
+        "name": "",
+        "env": [],
+        "x": 540,
+        "y": 160,
+        "wires": [
+            [
+                "wsenj2s010000000",
+                "wsensesvcdbgok1"
+            ],
+            [
+                "wsensesvcdbger1"
+            ]
+        ]
+    },
+    {
+        "id": "wsensesvcdbgok1",
+        "type": "debug",
+        "z": "wsensesvctab0001",
+        "name": "valid TimeSeries",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "wsensesvcdbger1",
+        "type": "debug",
+        "z": "wsensesvctab0001",
+        "name": "pipeline error",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "wsenmqttin010000",
+        "type": "mqtt in",
+        "z": "wsensesvctab0001",
+        "name": "subscribe test/wsense/in",
+        "topic": "test/wsense/in",
+        "qos": "2",
+        "datatype": "utf8",
+        "broker": "804846ccc9a5aedb",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 240,
+        "wires": [
+            [
+                "wsensesvcpipe01"
+            ]
+        ]
+    },
+    {
+        "id": "wsenj2s010000000",
+        "type": "json",
+        "z": "wsensesvctab0001",
+        "name": "stringify",
+        "property": "payload",
+        "action": "str",
+        "pretty": false,
+        "x": 800,
+        "y": 160,
+        "wires": [
+            [
+                "wsenchgraw010000"
+            ]
+        ]
+    },
+    {
+        "id": "wsenchgraw010000",
+        "type": "function",
+        "z": "wsensesvctab0001",
+        "name": "topic /in\u2192/raw",
+        "func": "// Append /raw suffix to msg.topic, stripping /in if present.\n// Returns null if topic is empty (e.g., file-in trigger) so we don't publish junk.\nconst t = msg.topic || '';\nif (!t) return null;\nmsg.topic = t.endsWith('/in') ? t.slice(0, -3) + '/raw' : t + '/raw';\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 160,
+        "wires": [
+            [
+                "wsenmqttout10000"
+            ]
+        ]
+    },
+    {
+        "id": "wsenmqttout10000",
+        "type": "mqtt out",
+        "z": "wsensesvctab0001",
+        "name": "publish /raw suffix",
+        "topic": "",
+        "qos": "2",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "804846ccc9a5aedb",
+        "x": 1230,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "wsensetestinj01",
+        "type": "test inject",
+        "z": "wsensetestab001",
+        "name": "WSense tests",
+        "onstart": true,
+        "tests": "  function testDirectory(dir, expectError, expectedFailures = new Set()) {\n      return fs.readdirSync(dir)\n          .filter(f => !fs.statSync(path.join(dir, f)).isDirectory())\n          .map((f, i) => {\n              const shouldError = expectError || expectedFailures.has(f);\n              return {\n                  label: `${shouldError ? 'should error' : 'should pass'}: ${f}`,\n                  delay: 100 + i * 20,\n                  timeout: 30000,\n                  inject: { filename: path.join(dir, f) },\n                  assert: function(msg) {\n                      if (shouldError) {\n                          should(msg).have.property('error');\n                      } else {\n                          should(msg).not.have.property('error');\n                          should(msg.payload).have.property('format', 'SMARTOCEAN_V1');\n                      }\n                  }\n              };\n          });\n  }\n\n  const base = '/home/jonas/Skule/data_transformer/tests/testdata/wsense';\n  return [\n      ...testDirectory(`${base}/valid_data`,     false),\n      ...testDirectory(`${base}/invalid_wsense`, true)\n  ];\n",
+        "x": 160,
+        "y": 180,
+        "wires": [
+            [
+                "wsensetestfile1"
+            ],
+            [
+                "wsensetestdbgr1"
+            ]
+        ]
+    },
+    {
+        "id": "wsensetestfile1",
+        "type": "file in",
+        "z": "wsensetestab001",
+        "name": "read JSON",
+        "filename": "filename",
+        "filenameType": "msg",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "utf8",
+        "allProps": false,
+        "x": 340,
+        "y": 180,
+        "wires": [
+            [
+                "wsensetestpipe1"
+            ]
+        ]
+    },
+    {
+        "id": "wsensetestpipe1",
+        "type": "subflow:wsenseflw00000001",
+        "z": "wsensetestab001",
+        "name": "",
+        "env": [],
+        "x": 540,
+        "y": 180,
+        "wires": [
+            [
+                "wsensetestasst1",
+                "wsensetestdbgp1"
+            ],
+            [
+                "wsensetestasst1"
+            ]
+        ]
+    },
+    {
+        "id": "wsensetestasst1",
+        "type": "assert",
+        "z": "wsensetestab001",
+        "name": "",
+        "x": 760,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "wsensetestdbgr1",
+        "type": "debug",
+        "z": "wsensetestab001",
+        "name": "Test report",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 340,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "wsensetestdbgp1",
+        "type": "debug",
+        "z": "wsensetestab001",
+        "name": "Pipeline output",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "virtsvcinj00001",
+        "type": "inject",
+        "z": "virtsvctab00001",
+        "name": "sample payload",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"format\":\"SMARTOCEAN_V1\",\"metadata\":{\"description\":\"virtual sample\",\"timeseries\":\"vt-1\"},\"data\":[{\"source_id\":\"hub1\",\"time\":\"2026-05-15T10:00:00Z\",\"observations\":[{\"source_id\":\"s1\",\"parameter\":\"sea_water_temperature\",\"value\":12.3,\"unit\":\"degree_Celsius\",\"qualityCodes\":[0]}]}]}",
+        "payloadType": "str",
+        "x": 140,
+        "y": 160,
+        "wires": [
+            [
+                "virtsvcpipe0001"
+            ]
+        ]
+    },
+    {
+        "id": "virtsvcpipe0001",
+        "type": "subflow:virtflw00000001",
+        "z": "virtsvctab00001",
+        "name": "",
+        "env": [],
+        "x": 380,
+        "y": 160,
+        "wires": [
+            [
+                "virtj2s010000000",
+                "virtsvcdbgok001"
+            ],
+            [
+                "virtsvcdbgerr01"
+            ]
+        ]
+    },
+    {
+        "id": "virtsvcdbgok001",
+        "type": "debug",
+        "z": "virtsvctab00001",
+        "name": "valid TimeSeries",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "virtsvcdbgerr01",
+        "type": "debug",
+        "z": "virtsvctab00001",
+        "name": "pipeline error",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "virtmqttin010000",
+        "type": "mqtt in",
+        "z": "virtsvctab00001",
+        "name": "subscribe test/virtual/in",
+        "topic": "test/virtual/in",
+        "qos": "2",
+        "datatype": "utf8",
+        "broker": "804846ccc9a5aedb",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 240,
+        "wires": [
+            [
+                "virtsvcpipe0001"
+            ]
+        ]
+    },
+    {
+        "id": "virtj2s010000000",
+        "type": "json",
+        "z": "virtsvctab00001",
+        "name": "stringify",
+        "property": "payload",
+        "action": "str",
+        "pretty": false,
+        "x": 800,
+        "y": 160,
+        "wires": [
+            [
+                "virtchgraw010000"
+            ]
+        ]
+    },
+    {
+        "id": "virtchgraw010000",
+        "type": "function",
+        "z": "virtsvctab00001",
+        "name": "topic /in\u2192/raw",
+        "func": "// Append /raw suffix to msg.topic, stripping /in if present.\n// Returns null if topic is empty (e.g., file-in trigger) so we don't publish junk.\nconst t = msg.topic || '';\nif (!t) return null;\nmsg.topic = t.endsWith('/in') ? t.slice(0, -3) + '/raw' : t + '/raw';\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 160,
+        "wires": [
+            [
+                "virtmqttout10000"
+            ]
+        ]
+    },
+    {
+        "id": "virtmqttout10000",
+        "type": "mqtt out",
+        "z": "virtsvctab00001",
+        "name": "publish /raw suffix",
+        "topic": "",
+        "qos": "2",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "804846ccc9a5aedb",
+        "x": 1190,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "fluoflw00000001",
+        "type": "subflow",
+        "name": "fluorometer-pipeline",
+        "info": "Fluorometer JSON \u2192 SmartOcean TimeSeriesData pipeline.\n\n**Input**: raw JSON string in `msg.payload`.\n**Output 1** (valid): full SmartOcean `TimeSeriesData`.\n**Output 2** (error): `msg.error` set.",
+        "category": "SmartOcean",
+        "in": [
+            {
+                "x": 80,
+                "y": 180,
+                "wires": [
+                    {
+                        "id": "fluofnvalid0001"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 1700,
+                "y": 120,
+                "wires": [
+                    {
+                        "id": "fluosubsoval001",
+                        "port": 0
+                    }
+                ]
+            },
+            {
+                "x": 1700,
+                "y": 260,
+                "wires": [
+                    {
+                        "id": "fluofnvalid0001",
+                        "port": 1
+                    },
+                    {
+                        "id": "fluofnprojct001",
+                        "port": 1
+                    },
+                    {
+                        "id": "fluosubsoval001",
+                        "port": 1
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#87C5DA",
+        "outputLabels": [
+            "valid",
+            "error"
+        ]
+    },
+    {
+        "id": "fluofnvalid0001",
+        "type": "function",
+        "z": "fluoflw00000001",
+        "name": "fluorometer-validate",
+        "func": "// Faithful to Python validate_fluorometer_format:\n//   - JSON parses\n//   - top-level required keys present\nlet parsed;\ntry {\n    parsed = typeof msg.payload === 'string' ? JSON.parse(msg.payload) : msg.payload;\n} catch (e) {\n    msg.error = 'Fluorometer JSON parse: ' + e.message;\n    return [null, msg];\n}\nconst required = ['device_id','device_type','deployment','location','measured_at','measurements'];\nconst missing = required.filter(k => !(k in parsed));\nif (missing.length) {\n    msg.error = 'Fluorometer payload missing required keys: ' + JSON.stringify(missing);\n    return [null, msg];\n}\nmsg.payload = parsed;\nreturn [msg, null];\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 180,
+        "wires": [
+            [
+                "fluofnprojct001"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "fluofnprojct001",
+        "type": "function",
+        "z": "fluoflw00000001",
+        "name": "fluorometer-project",
+        "func": "// Project fluorometer payload to the canonical row contract consumed\n// by cmems-standard + assemble-timeseries.\n\nconst payload = msg.payload;\nconst unitBySuffix = { ugl: 'ug/L', ntu: 'NTU', qsde: 'QSDE' };\n\nfunction splitField(field) {\n    if (!field.includes('_')) return [field, ''];\n    const idx = field.lastIndexOf('_');\n    const base = field.slice(0, idx);\n    const suffix = field.slice(idx + 1).toLowerCase();\n    const unit = unitBySuffix[suffix];\n    return unit ? [base, unit] : [field, ''];\n}\n\n// CMEMS table uses hyphenated names (\"Chlorophyll-a\"). The substring lookup\n// won't match \"chlorophyll_a\", so swap underscores for hyphens to give the\n// lookup a chance.\nfunction normaliseForCmems(base) {\n    return base.replace(/_/g, '-');\n}\n\n// Mirror Python's datetime.isoformat() when it's already UTC: drop fractional\n// zero seconds, normalise trailing Z to +00:00.\nfunction toUtcIso(ts) {\n    if (typeof ts === 'string') {\n        let s = ts.replace(/\\.0+(?=Z|[+-])/, '');\n        if (s.endsWith('+00:00')) return s;\n        if (s.endsWith('Z'))      return s.slice(0, -1) + '+00:00';\n    }\n    const d = new Date(ts);\n    if (isNaN(d.getTime())) throw new Error('bad date: ' + ts);\n    return d.toISOString().replace('Z', '+00:00');\n}\n\nconst deviceId   = payload.device_id;\nconst deviceType = payload.device_type;\nconst deployment = payload.deployment;\nconst loc        = payload.location;\nconst measuredAt = payload.measured_at;\nconst measurements  = payload.measurements   || {};\nconst qualityFlags  = payload.quality_flags  || {};\n\nconst metadata = {\n    description: `${deviceType}: ${deployment}`,\n    timeseries:  deviceId,\n    origin:      deviceId,\n};\n\nconst time     = toUtcIso(measuredAt);\nconst location = { latitude: loc.lat, longitude: loc.lon };\n\nconst rows = [];\nfor (const [field, value] of Object.entries(measurements)) {\n    const [base, unitRaw] = splitField(field);\n    rows.push({\n        scope:          'WATER',\n        parameter_raw:  normaliseForCmems(base),\n        unit_raw:       unitRaw,\n        value:          value,\n        qualityCodes:   [qualityFlags[base] ?? 0],\n        time:           time,\n        location:       location,\n        hub_source:     deviceType,\n        hub_source_id:  deviceId,\n        sensor_source:  deviceType,\n        sensor_id:      deviceId,\n    });\n}\n\nmsg.payload = { metadata, rows };\nreturn [msg, null];\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 180,
+        "wires": [
+            [
+                "fluosubcmems001"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "fluosubcmems001",
+        "type": "subflow:de0d27225549eda2",
+        "z": "fluoflw00000001",
+        "name": "",
+        "env": [],
+        "x": 810,
+        "y": 160,
+        "wires": [
+            [
+                "fluosubasmbl001"
+            ]
+        ]
+    },
+    {
+        "id": "fluosubasmbl001",
+        "type": "subflow:815da58933cee030",
+        "z": "fluoflw00000001",
+        "name": "",
+        "env": [
+            {
+                "name": "ASSIGN_DP_ID",
+                "type": "str",
+                "value": "true"
+            }
+        ],
+        "x": 1060,
+        "y": 160,
+        "wires": [
+            [
+                "fluosubsoval001"
+            ]
+        ]
+    },
+    {
+        "id": "fluosubsoval001",
+        "type": "subflow:5abdf5e22350bc81",
+        "z": "fluoflw00000001",
+        "name": "",
+        "env": [],
+        "x": 1300,
+        "y": 160,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "fluosvctab00001",
+        "type": "tab",
+        "label": "Fluorometer Service",
+        "disabled": false,
+        "info": "Fluorometer JSON \u2192 SmartOcean TimeSeriesData pipeline.",
+        "env": []
+    },
+    {
+        "id": "fluosvcpipe0001",
+        "type": "subflow:fluoflw00000001",
+        "z": "fluosvctab00001",
+        "name": "",
+        "env": [],
+        "x": 540,
+        "y": 160,
+        "wires": [
+            [
+                "fluosvcjstr0001",
+                "fluosvcdbgok001"
+            ],
+            [
+                "fluosvcdbger001"
+            ]
+        ]
+    },
+    {
+        "id": "fluosvcdbgok001",
+        "type": "debug",
+        "z": "fluosvctab00001",
+        "name": "valid TimeSeries",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "fluosvcdbger001",
+        "type": "debug",
+        "z": "fluosvctab00001",
+        "name": "pipeline error",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "fluosvcmqtti001",
+        "type": "mqtt in",
+        "z": "fluosvctab00001",
+        "name": "subscribe test/fluorometer/in",
+        "topic": "test/fluorometer/in",
+        "qos": "2",
+        "datatype": "utf8",
+        "broker": "804846ccc9a5aedb",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 240,
+        "wires": [
+            [
+                "fluosvcpipe0001"
+            ]
+        ]
+    },
+    {
+        "id": "fluosvcjstr0001",
+        "type": "json",
+        "z": "fluosvctab00001",
+        "name": "stringify",
+        "property": "payload",
+        "action": "str",
+        "pretty": false,
+        "x": 800,
+        "y": 160,
+        "wires": [
+            [
+                "fluosvcchgraw01"
+            ]
+        ]
+    },
+    {
+        "id": "fluosvcchgraw01",
+        "type": "function",
+        "z": "fluosvctab00001",
+        "name": "topic /in\u2192/raw",
+        "func": "// Append /raw suffix to msg.topic, stripping /in if present.\n// Returns null if topic is empty (file-in trigger) so we don't publish junk.\nconst t = msg.topic || '';\nif (!t) return null;\nmsg.topic = t.endsWith('/in') ? t.slice(0, -3) + '/raw' : t + '/raw';\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 160,
+        "wires": [
+            [
+                "fluosvcmqtto001"
+            ]
+        ]
+    },
+    {
+        "id": "fluosvcmqtto001",
+        "type": "mqtt out",
+        "z": "fluosvctab00001",
+        "name": "publish /raw suffix",
+        "topic": "",
+        "qos": "2",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "804846ccc9a5aedb",
+        "x": 1230,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "exsf_scale_def",
+        "type": "subflow",
+        "name": "scale-reading",
+        "info": "Reusable example subflow.\n\nMultiplies an incoming numeric reading by SCALE and adds OFFSET.\nSCALE and OFFSET are environment variables declared on the definition\nand overridden per instance, so every instance shares one body of\nlogic while remaining individually configurable.",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "exsf_scale_fn"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 360,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "exsf_scale_fn",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [
+            {
+                "name": "SCALE",
+                "type": "num",
+                "value": "1",
+                "ui": {
+                    "label": {
+                        "en-US": "Calibration factor"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "num"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "OFFSET",
+                "type": "num",
+                "value": "0",
+                "ui": {
+                    "label": {
+                        "en-US": "Offset"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "num"
+                        ]
+                    }
+                }
+            }
+        ],
+        "meta": {},
+        "color": "#a6bbcf"
+    },
+    {
+        "id": "exsf_scale_fn",
+        "type": "function",
+        "z": "exsf_scale_def",
+        "name": "scale + offset",
+        "func": "// One input, one output.\n// SCALE and OFFSET are environment variables declared on the\n// subflow definition; each instance supplies its own values.\nconst scale  = parseFloat(env.get(\"SCALE\"))  || 1;\nconst offset = parseFloat(env.get(\"OFFSET\")) || 0;\n\nmsg.payload = msg.payload * scale + offset;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 200,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "exsf_tab",
+        "type": "tab",
+        "label": "Subflow Example",
+        "disabled": false,
+        "info": "Two instances of the single scale-reading definition, each with its\nown SCALE/OFFSET. Editing the definition changes both; the env vars\nkeep their calibration distinct."
+    },
+    {
+        "id": "exsf_inj_temp",
+        "type": "inject",
+        "z": "exsf_tab",
+        "name": "raw temp (824)",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "824",
+        "payloadType": "num",
+        "x": 170,
+        "y": 100,
+        "wires": [
+            [
+                "exsf_inst_temp"
+            ]
+        ]
+    },
+    {
+        "id": "exsf_inst_temp",
+        "type": "subflow:exsf_scale_def",
+        "z": "exsf_tab",
+        "name": "Temperature  (x0.1)",
+        "env": [
+            {
+                "name": "SCALE",
+                "value": "0.1",
+                "type": "num"
+            },
+            {
+                "name": "OFFSET",
+                "value": "0",
+                "type": "num"
+            }
+        ],
+        "x": 420,
+        "y": 100,
+        "wires": [
+            [
+                "exsf_dbg_temp"
+            ]
+        ]
+    },
+    {
+        "id": "exsf_dbg_temp",
+        "type": "debug",
+        "z": "exsf_tab",
+        "name": "temp (degC)",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 650,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "exsf_inj_pres",
+        "type": "inject",
+        "z": "exsf_tab",
+        "name": "raw pressure (500)",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "500",
+        "payloadType": "num",
+        "x": 180,
+        "y": 180,
+        "wires": [
+            [
+                "exsf_inst_pres"
+            ]
+        ]
+    },
+    {
+        "id": "exsf_inst_pres",
+        "type": "subflow:exsf_scale_def",
+        "z": "exsf_tab",
+        "name": "Pressure  (x2, +5)",
+        "env": [
+            {
+                "name": "SCALE",
+                "value": "2",
+                "type": "num"
+            },
+            {
+                "name": "OFFSET",
+                "value": "5",
+                "type": "num"
+            }
+        ],
+        "x": 420,
+        "y": 180,
+        "wires": [
+            [
+                "exsf_dbg_pres"
+            ]
+        ]
+    },
+    {
+        "id": "exsf_dbg_pres",
+        "type": "debug",
+        "z": "exsf_tab",
+        "name": "pressure (kPa)",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 660,
+        "y": 180,
+        "wires": []
+    }
+]
